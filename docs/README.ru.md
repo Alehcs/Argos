@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BasilForge/Kairos/releases"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
+  <a href="https://github.com/BasilForge/Kairos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
   <img src="https://img.shields.io/badge/license-GPL--2.0-3A3130?style=for-the-badge" alt="License: GPL-2.0">
   <img src="https://img.shields.io/badge/languages-7-3A3130?style=for-the-badge" alt="7 languages">
 </p>
@@ -58,7 +58,7 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 
 ## Скачать
 
-1. Скачайте **Kairos-Setup.exe** из [последнего выпуска](https://github.com/BasilForge/Kairos/releases).
+1. Скачайте **Kairos-Setup.exe** из [последнего выпуска](https://github.com/BasilForge/Kairos/releases/latest).
 2. Запустите его и следуйте шагам: выберите язык и папку (права администратора не нужны), а также нужен ли ярлык на рабочем столе и запуск Kairos вместе с Windows.
 3. Играйте и нажмите `Alt+F10`, когда случится что-то стоящее.
 

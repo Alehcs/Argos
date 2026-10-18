@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BasilForge/Kairos/releases"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
+  <a href="https://github.com/BasilForge/Kairos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
   <img src="https://img.shields.io/badge/license-GPL--2.0-3A3130?style=for-the-badge" alt="License: GPL-2.0">
   <img src="https://img.shields.io/badge/languages-7-3A3130?style=for-the-badge" alt="7 languages">
 </p>
@@ -58,7 +58,7 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 
 ## 下载
 
-1. 从[最新版本](https://github.com/BasilForge/Kairos/releases)下载 **Kairos-Setup.exe**。
+1. 从[最新版本](https://github.com/BasilForge/Kairos/releases/latest)下载 **Kairos-Setup.exe**。
 2. 运行它并按步骤操作：选择语言和安装文件夹（无需管理员权限），以及是否创建桌面快捷方式、是否随 Windows 启动 Kairos。
 3. 开始游戏，精彩时刻出现时按下 `Alt+F10`。
 

@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BasilForge/Kairos/releases"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
+  <a href="https://github.com/BasilForge/Kairos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
   <img src="https://img.shields.io/badge/license-GPL--2.0-3A3130?style=for-the-badge" alt="License: GPL-2.0">
   <img src="https://img.shields.io/badge/languages-7-3A3130?style=for-the-badge" alt="7 languages">
 </p>
@@ -58,7 +58,7 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 
 ## Download
 
-1. Baixe o **Kairos-Setup.exe** na [versão mais recente](https://github.com/BasilForge/Kairos/releases).
+1. Baixe o **Kairos-Setup.exe** na [versão mais recente](https://github.com/BasilForge/Kairos/releases/latest).
 2. Execute e siga as etapas: escolha o idioma e a pasta (sem direitos de administrador), e se quer um atalho na área de trabalho e iniciar o Kairos com o Windows.
 3. Jogue e aperte `Alt+F10` quando algo acontecer.
 
