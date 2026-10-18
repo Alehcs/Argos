@@ -82,7 +82,6 @@
   "status.quality": "Qualität",
   "status.lastClip": "Letzter Clip",
   "status.noClip": "Noch keine Clips",
-  "status.dropped": "{0} Bilder wurden verworfen. Versuch eine niedrigere Qualität oder Auflösung.",
   "status.folderFallback": "Der Clip-Ordner ist nicht erreichbar, Clips landen daher in {0}",
   "mode.screen": "Ganzer Bildschirm",
   "mode.window": "Eine App",

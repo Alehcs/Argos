@@ -48,12 +48,6 @@
                 <TextBlock Style="{StaticResource NoticeText}" Text="{Binding FolderWarning}"/>
             </DockPanel>
         </Border>
-        <Border Style="{StaticResource Notice}" Visibility="{Binding DroppedWarning, Converter={StaticResource Vis}}">
-            <DockPanel>
-                <TextBlock Style="{StaticResource NoticeIcon}" DockPanel.Dock="Left"/>
-                <TextBlock Style="{StaticResource NoticeText}" Text="{Binding DroppedWarning}"/>
-            </DockPanel>
-        </Border>
 
         <!-- State -->
         <Border Style="{StaticResource Card}" Padding="22,20">

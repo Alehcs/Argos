@@ -85,7 +85,6 @@
   "status.quality": "الجودة",
   "status.lastClip": "آخر مقطع",
   "status.noClip": "لا توجد مقاطع بعد",
-  "status.dropped": "عدد الإطارات المفقودة: {0}. جرّب جودة أو دقة أقل.",
   "status.folderFallback": "مجلد الحفظ غير متاح، لذا تُحفظ المقاطع في {0}",
   "mode.screen": "الشاشة كاملة",
   "mode.window": "تطبيق واحد",

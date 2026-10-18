@@ -22,7 +22,7 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
     [
         nameof(EngineOnline), nameof(State), nameof(StateTitle), nameof(StateDetail), nameof(BufferProgress), nameof(BufferText),
         nameof(MemoryText), nameof(QualityText), nameof(EncoderText), nameof(LastClipPath), nameof(LastShotPath),
-        nameof(LastClipName), nameof(LastShotName), nameof(HasLastClip), nameof(HasLastShot), nameof(FolderWarning), nameof(DroppedWarning), nameof(EffectiveFolder),
+        nameof(LastClipName), nameof(LastShotName), nameof(HasLastClip), nameof(HasLastShot), nameof(FolderWarning), nameof(EffectiveFolder),
         nameof(SaveVisible), nameof(ReplayPauseVisible), nameof(ReplayPauseTip), nameof(RecordState), nameof(RecordTitle), nameof(RecordDetail),
         nameof(IsRecording), nameof(IsRecordingLive), nameof(StartPrimaryVisible), nameof(StartGhostVisible), nameof(RecordPauseLabel),
         nameof(VoiceView), nameof(ShotView), nameof(VoiceStep), nameof(VoiceDone1), nameof(VoiceDone2), nameof(VoiceDone3), nameof(VoiceMessage),
@@ -856,17 +856,6 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
     public string? LastShotPath => _status?.LastShot;
     public string LastClipName => LastClipPath is { } p ? Path.GetFileNameWithoutExtension(p) : Text.Get("status.noClip");
     public string FolderWarning => _status?.Engine is { FolderFellBack: true } e ? Text.Format("status.folderFallback", e.ClipsFolder) : "";
-    /// <summary>Shown only when frames are actually being lost (over 30 and over 0.5% of all frames).</summary>
-    public string DroppedWarning
-    {
-        get
-        {
-            if (_status?.Engine is not { } e)
-                return "";
-            long dropped = e.SkippedFrames + e.LaggedFrames;
-            return dropped > 30 && dropped * 200 > e.TotalFrames ? Text.Format("status.dropped", dropped) : "";
-        }
-    }
 
     // ------------------------------------------------------------------ commands
 

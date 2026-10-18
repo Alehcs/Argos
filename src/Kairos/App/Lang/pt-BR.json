@@ -82,7 +82,6 @@
   "status.quality": "Qualidade",
   "status.lastClip": "Último clipe",
   "status.noClip": "Nenhum clipe ainda",
-  "status.dropped": "{0} quadros foram perdidos. Tente uma qualidade ou resolução menor.",
   "status.folderFallback": "A pasta de clipes não está disponível, então os clipes vão para {0}",
   "mode.screen": "Tela inteira",
   "mode.window": "Um app",

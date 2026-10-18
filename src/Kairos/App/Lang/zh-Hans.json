@@ -81,7 +81,6 @@
   "status.quality": "画质",
   "status.lastClip": "最近片段",
   "status.noClip": "还没有片段",
-  "status.dropped": "已丢失 {0} 帧。请降低画质或分辨率。",
   "status.folderFallback": "片段文件夹不可用，片段将保存到 {0}",
   "mode.screen": "全屏",
   "mode.window": "单个应用",
