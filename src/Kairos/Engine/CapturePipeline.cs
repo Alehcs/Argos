@@ -133,7 +133,10 @@ public sealed class CapturePipeline : IDisposable
 
     IntPtr CreateMonitorSource(string monitorId)
     {
-        using var d = new ObsData().Set("monitor_id", monitorId).Set("method", 0L).Set("capture_cursor", _s.Capture.CaptureCursor);
+        // Kairos records SDR (NV12, Rec. 709): with Force SDR Windows hands an HDR screen over already in SDR, where the
+        // HDR copy recorded black on some HDR monitors (a 4K HDR screen, DXGI, 2026-10-18).
+        using var d = new ObsData().Set("monitor_id", monitorId).Set("method", 0L).Set("capture_cursor", _s.Capture.CaptureCursor)
+            .Set("force_sdr", true);
         return CreateSource("monitor_capture", "Screen", d);
     }
 
