@@ -53,6 +53,18 @@ jobs:
           # A run that found no tests at all is a broken setup, not a pass.
           if (-not ($lines | Where-Object { $_ -match '^(PASS|FAIL) ' })) { Write-Output '::error::No tests ran'; exit 1 }
 
+      # The release publishes the program compiled ahead of time (ReadyToRun): make sure that still builds.
+      - name: Publish as a release does
+        shell: pwsh
+        run: |
+          dotnet publish src/Argos -c Release --self-contained true -o publish --nologo
+          dotnet publish src/Argos -c Release --self-contained true -o publish-jit -p:PublishReadyToRun=false --nologo
+          foreach ($dir in 'publish', 'publish-jit') {
+              $mb = (Get-ChildItem $dir -Recurse -File | Measure-Object Length -Sum).Sum / 1MB
+              $dll = (Get-Item "$dir/Argos.dll").Length / 1MB
+              "{0}: {1:N1} MB in all, Argos.dll {2:N1} MB" -f $dir, $mb, $dll | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          }
+
       - name: Keep the test output
         if: always()
         uses: actions/upload-artifact@v4

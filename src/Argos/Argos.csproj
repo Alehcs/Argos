@@ -15,6 +15,9 @@
     <!-- Without dynamic PGO the runtime compiles each hot method once, not twice (instrumented, then optimized): measured,
          the settings window used a third less CPU in its first minute, with heavy saves as fast. -->
     <TieredPGO>false</TieredPGO>
+    <!-- A release is compiled ahead of time (ReadyToRun): the engine starts with Windows, and saves its first clip of a
+         game, without stopping to compile its own code. -->
+    <PublishReadyToRun>true</PublishReadyToRun>
     <!-- Builds name the repository "/_/" instead of the folder on the build machine. -->
     <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..'))=/_/</PathMap>
     <AssemblyName>Argos</AssemblyName>
