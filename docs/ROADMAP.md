@@ -115,9 +115,13 @@ el motor arrancando, respondiendo y cerrándose). Falta medir el ahorro en un PC
 - [ ] **Instalador de confianza:** GitHub compila el instalador solo, desde el código. Se firma, así que Windows deja de
   avisar de "editor desconocido". Y se publica su huella (hash SHA-256) para comprobar que nadie lo alteró. La firma es
   gratis con SignPath si el repo es público; si no, cuesta unos 10 USD al mes (aproximado).
-- [ ] **Comprobar el enlace de "Abrir publicación"** (que sea de x.com) antes de abrirlo.
-- [ ] **Quitar los interruptores de desarrollador en las versiones públicas:** `update-source.txt`, `ARGOS_DATA` y
-  `ARGOS_FFMPEG`. Permiten cambiar de dónde vienen las actualizaciones o cargar componentes desde otra carpeta.
+- [x] **Comprobar el enlace de "Abrir publicación"** antes de abrirlo. Solo se acepta una página https del propio sitio
+  (x.com, twitter.com); si no, se abre la portada del sitio. Además, Argos solo abre direcciones https, nunca archivos ni
+  programas. Hay un test con 11 trampas posibles.
+- [x] **Quitar los interruptores de desarrollador en las versiones públicas:** `update-source.txt`, `ARGOS_DATA` y
+  `ARGOS_FFMPEG` (permitían cambiar de dónde vienen las actualizaciones o cargar componentes desde otra carpeta).
+  - La versión pública (`PublicRelease=true` en `tools/release.ps1`) los apaga; las de desarrollo y prueba los mantienen.
+  - GitHub comprueba en cada cambio que la versión pública ignora `ARGOS_DATA`.
 - [ ] **Motor de subtítulos propio:** los subtítulos necesitan unos archivos extra (~15 MB) que Argos descarga la primera
   vez. Hoy los descarga del GitHub de BasilForge. Que alguien los altere no es un riesgo, porque Argos rechaza cualquier
   archivo cuya huella no coincida. El riesgo es que BasilForge los borre: los subtítulos dejarían de funcionar.
