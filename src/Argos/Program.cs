@@ -99,6 +99,9 @@ public static class Program
             return 0;
         }
 
+        // The engine has no window to keep smooth and a small heap: its full collections block for a moment instead of
+        // running on a background thread of their own (one thread and some memory less). The settings window keeps them.
+        System.Runtime.GCSettings.LatencyMode = System.Runtime.GCLatencyMode.Batch;
         System.Windows.Forms.Application.EnableVisualStyles();
         System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
         System.Windows.Forms.Application.Run(new EngineApp(openSettings: mode != "--background", background: mode == "--background"));
