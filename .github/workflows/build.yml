@@ -35,7 +35,8 @@ jobs:
         timeout-minutes: 25
         shell: pwsh
         run: |
-          dotnet run --project tests/Argos.Tests -c Release --property:Platform=x64 --nologo 2>&1 | Tee-Object -FilePath test-results.txt
+          # No arguments after the project options: dotnet run hands unknown ones to the test runner as a name filter.
+          dotnet run --project tests/Argos.Tests -c Release --property:Platform=x64 2>&1 | Tee-Object -FilePath test-results.txt
           exit $LASTEXITCODE
 
       - name: Test summary
@@ -47,6 +48,8 @@ jobs:
           $summary = @('## Tests', '', ($lines | Select-Object -Last 1))
           if ($failed.Count -gt 0) { $summary += @('', "### Failed ($($failed.Count))", '', '```') + $failed + @('```') }
           $summary | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          # A run that found no tests at all is a broken setup, not a pass.
+          if (-not ($lines | Where-Object { $_ -match '^(PASS|FAIL) ' })) { Write-Output '::error::No tests ran'; exit 1 }
 
       - name: Keep the test output
         if: always()
