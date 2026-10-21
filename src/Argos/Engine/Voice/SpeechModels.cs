@@ -37,6 +37,8 @@ public sealed class SpeechModels : IDisposable
             IntraOpNumThreads = 1,
             InterOpNumThreads = 1,
             ExecutionMode = ExecutionMode.ORT_SEQUENTIAL,
+            // No memory arena: the models are tiny, and an arena keeps its largest size for as long as Smart Save listens.
+            EnableCpuMemArena = false,
         };
         if (!vadOnly)
         {
