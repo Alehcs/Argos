@@ -71,8 +71,11 @@ public sealed class WpfShareHost(Action<ShareSettings> remember) : IShareHost
         }
     }
 
+    /// <summary>Opens a web page in the browser; anything but an https address (a file, a program) is ignored.</summary>
     public void Launch(string target)
     {
+        if (!Uri.TryCreate(target, UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps)
+            return;
         try
         {
             Process.Start(new ProcessStartInfo(target) { UseShellExecute = true });

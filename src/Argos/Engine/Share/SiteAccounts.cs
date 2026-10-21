@@ -66,4 +66,13 @@ public static class SiteAccounts
 
     public static bool IsSignedIn(SharePlatform platform, IEnumerable<SiteCookie> cookies) =>
         cookies.Any(c => c.Name == SessionCookie(platform) && c.Value.Length > 0 && Owns(platform, c.Domain));
+
+    /// <summary>
+    /// The new post's address as the site's page shows it, only when it is an https page of the site's own; else null.
+    /// The page cannot make "Open post" open a file, a program or another site.
+    /// </summary>
+    public static string? PostAddress(SharePlatform platform, string? address) =>
+        Uri.TryCreate(address, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps && Owns(platform, uri.Host)
+            ? uri.AbsoluteUri
+            : null;
 }

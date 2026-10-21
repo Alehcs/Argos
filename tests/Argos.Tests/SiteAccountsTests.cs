@@ -44,6 +44,23 @@ public static class SiteAccountsTests
         Assert.True(partial is { Count: 3 } && partial[SharePlatform.X] && !partial[SharePlatform.TikTok], "a site not listed: not signed in");
     }
 
+    /// <summary>"Open post" opens only the site's own https page, whatever the page put in its link.</summary>
+    [Test]
+    public static void Only_the_sites_own_https_page_opens_as_the_new_post()
+    {
+        Assert.Equal("https://x.com/argos/status/1", SiteAccounts.PostAddress(SharePlatform.X, "https://x.com/argos/status/1"), "a post on x.com");
+        Assert.Equal("https://mobile.twitter.com/a/status/2", SiteAccounts.PostAddress(SharePlatform.X, "https://mobile.twitter.com/a/status/2"),
+            "a subdomain of the old twitter.com");
+        foreach (string? bad in new[]
+                 {
+                     "http://x.com/a/status/1", "file:///C:/Windows/System32/calc.exe", @"C:\Windows\System32\calc.exe", "ms-settings:privacy",
+                     "javascript:alert(1)", "https://x.com.evil.net/status/1", "https://evil.net/x.com/status/1", "https://x.com@evil.net/status/1",
+                     "status/1", "", null,
+                 })
+            Assert.Equal(null, SiteAccounts.PostAddress(SharePlatform.X, bad), bad ?? "no address");
+        Assert.Equal(null, SiteAccounts.PostAddress(SharePlatform.TikTok, "https://x.com/a/status/1"), "another site's page");
+    }
+
     [Test]
     public static void Each_site_has_its_sign_in_page()
     {

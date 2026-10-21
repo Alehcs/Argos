@@ -84,7 +84,7 @@ public sealed class PublishRunner(CoreWebView2 core, PublishRecipe recipe, strin
             if (flow.State == PublishState.Posted)
             {
                 StatusChanged?.Invoke(flow.StatusKey);
-                string? url = JsonSerializer.Deserialize<string?>(await Eval(recipe.PostUrlJs));
+                string? url = SiteAccounts.PostAddress(recipe.Platform, JsonSerializer.Deserialize<string?>(await Eval(recipe.PostUrlJs)));
                 return new PublishOutcome(PublishResult.Posted, url, XPremium: premium);
             }
             if (flow.State == PublishState.NeedsUser)
