@@ -61,6 +61,38 @@ jobs:
           $mb = (Get-ChildItem publish -Recurse -File | Measure-Object Length -Sum).Sum / 1MB
           "Published program: {0:N1} MB" -f $mb | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
 
+      # The published program (compiled ahead of time) runs: the share panel's publishing on local mock pages, then the
+      # engine itself, asked for its status and to exit. Without OBS on this runner the engine starts with an error
+      # instead of recording, which is enough to see it start, answer and close.
+      - name: Smoke test the published program
+        timeout-minutes: 8
+        shell: pwsh
+        run: |
+          $exe = (Resolve-Path publish/Argos.exe).Path
+          function Invoke-Argos([string[]] $arguments) {
+              $p = Start-Process $exe -ArgumentList $arguments -NoNewWindow -Wait -PassThru -RedirectStandardOutput argos-out.txt
+              [pscustomobject]@{ Code = $p.ExitCode; Text = (Get-Content argos-out.txt -Raw) }
+          }
+
+          $share = Invoke-Argos @('--selftest-share-site', (Resolve-Path tests/Argos.Tests/Fixtures/Share/clip-h264.mp4).Path)
+          $share.Text
+          if ($share.Code -ne 0) { throw "share self-test: $($share.Code) failed" }
+
+          $engine = Start-Process $exe -ArgumentList '--background' -PassThru
+          $null = $engine.Handle # keeps the exit code readable once it ends
+          $status = $null
+          for ($i = 0; $i -lt 30 -and -not $status; $i++) {
+              Start-Sleep -Seconds 1
+              $reply = (Invoke-Argos @('--send', 'status')).Text
+              if ($reply -match '"version"') { $status = $reply }
+          }
+          if (-not $status) { Get-Content "$env:APPDATA/Argos/logs/argos-*.log" -Tail 40; throw 'the engine did not answer' }
+          "engine status: $($status.Substring(0, [Math]::Min(300, $status.Length)))"
+          Invoke-Argos @('--send', 'exit') | Out-Null
+          if (-not $engine.WaitForExit(30000)) { $engine.Kill(); throw 'the engine did not exit' }
+          if ($engine.ExitCode -ne 0) { throw "the engine exited with code $($engine.ExitCode)" }
+          'engine: started, answered and closed'
+
       - name: Keep the test output
         if: always()
         uses: actions/upload-artifact@v4

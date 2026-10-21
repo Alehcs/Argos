@@ -137,6 +137,6 @@ Rama `perf/phase-1`: compila y pasa los tests en GitHub; falta medir en un PC re
 ## Registro
 
 - **21 oct 2026:** copia independiente de BasilForge/Kairos, auditoría de seguridad y renombrado a Argos de todo lo
-  visible (commit `e1c1a82`). Después, renombrado completo de código, carpetas y archivos (rama
+  visible (commit `79e35a5`). Después, renombrado completo de código, carpetas y archivos (rama
   `rename/argos-complete`, fusionada en master) y esta hoja de ruta. Compilación y tests automáticos en GitHub: en
   verde (493 tests pasan, 56 se saltan).
