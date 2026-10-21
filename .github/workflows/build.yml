@@ -3,7 +3,10 @@ name: Build and test
 on:
   push:
     branches: ['**']
+    # Notes and documents only: nothing to build.
+    paths-ignore: ['**.md', 'docs/**']
   pull_request:
+    paths-ignore: ['**.md', 'docs/**']
   workflow_dispatch:
 
 permissions:

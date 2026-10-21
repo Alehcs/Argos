@@ -36,8 +36,11 @@ Documento vivo: lo vamos afinando. Última actualización: 21 oct 2026.
 
 - [ ] PC con Windows y GPU para probar.
 - [ ] Medir antes y después de cada cambio: RAM del programa (página Estado), CPU, GPU y FPS del juego (PresentMon o CapFrameX).
-- [ ] Compilación y tests automáticos en GitHub (Windows) en cada cambio. Así se puede comprobar que compila sin tener
-  un PC con Windows a mano.
+- [x] Compilación y tests automáticos en GitHub (Windows) en cada cambio (`.github/workflows/build.yml`).
+  - Compila sin errores ni avisos.
+  - Hay 493 tests obligatorios: si uno falla, la ejecución sale en rojo.
+  - Otros 56 se saltan en GitHub porque necesitan OBS Studio o el motor de subtítulos; en un PC con OBS se ejecutan.
+  - Los cambios que solo tocan documentos no gastan minutos de compilación.
 
 ## Fase 1: ganancias rápidas (aprobada; sin cambiar funciones)
 
@@ -123,11 +126,12 @@ Documento vivo: lo vamos afinando. Última actualización: 21 oct 2026.
 
 ## Pendientes
 
-- [ ] Compilar y probar en Windows. Nada se ha compilado todavía (ni el primer renombrado ni el completo).
+- [ ] Probar en un PC real con Windows, OBS y gráfica. En GitHub ya compila y pasan todos los tests que no necesitan hardware.
 - [ ] Las actualizaciones automáticas no funcionarán mientras el repo sea privado.
 
 ## Registro
 
 - **21 oct 2026:** copia independiente de BasilForge/Kairos, auditoría de seguridad y renombrado a Argos de todo lo
   visible (commit `e1c1a82`). Después, renombrado completo de código, carpetas y archivos (rama
-  `rename/argos-complete`, fusionada en master) y esta hoja de ruta.
+  `rename/argos-complete`, fusionada en master) y esta hoja de ruta. Compilación y tests automáticos en GitHub: en
+  verde (493 tests pasan, 56 se saltan).
