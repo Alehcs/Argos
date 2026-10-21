@@ -167,7 +167,7 @@ public static unsafe class ClipTranscoder
 
     /// <summary>Argos's FFmpeg: beside Argos.exe (ARGOS_FFMPEG points a development build at another copy).</summary>
     public static string DefaultFolder =>
-        Environment.GetEnvironmentVariable("ARGOS_FFMPEG") is { Length: > 0 } folder ? folder : AppContext.BaseDirectory;
+        AppInfo.DeveloperSwitches && Environment.GetEnvironmentVariable("ARGOS_FFMPEG") is { Length: > 0 } folder ? folder : AppContext.BaseDirectory;
 
     /// <summary>Loads FFmpeg from <see cref="DefaultFolder"/> on first use (a screenshot can be the first thing edited).</summary>
     internal static void RequireLoaded()

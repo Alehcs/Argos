@@ -6,7 +6,7 @@ namespace Argos.Settings;
 public static class SettingsStore
 {
     /// <summary>%AppData%\Argos; ARGOS_DATA points a development run (renders of the project page) at another folder.</summary>
-    public static string AppDataDir { get; } = Environment.GetEnvironmentVariable("ARGOS_DATA") is { Length: > 0 } dev
+    public static string AppDataDir { get; } = AppInfo.DeveloperSwitches && Environment.GetEnvironmentVariable("ARGOS_DATA") is { Length: > 0 } dev
         ? dev
         : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppInfo.Name);
 

@@ -53,11 +53,12 @@ jobs:
           # A run that found no tests at all is a broken setup, not a pass.
           if (-not ($lines | Where-Object { $_ -match '^(PASS|FAIL) ' })) { Write-Output '::error::No tests ran'; exit 1 }
 
-      # The release publishes the program compiled ahead of time (ReadyToRun): make sure that still builds.
+      # The release publishes the program compiled ahead of time (ReadyToRun), with the developer switches off
+      # (PublicRelease): make sure that still builds.
       - name: Publish as a release does
         shell: pwsh
         run: |
-          dotnet publish src/Argos -c Release --self-contained true -o publish --nologo
+          dotnet publish src/Argos -c Release --self-contained true -p:PublicRelease=true -o publish --nologo
           $mb = (Get-ChildItem publish -Recurse -File | Measure-Object Length -Sum).Sum / 1MB
           "Published program: {0:N1} MB" -f $mb | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
 
@@ -78,6 +79,8 @@ jobs:
           $share.Text
           if ($share.Code -ne 0) { throw "share self-test: $($share.Code) failed" }
 
+          # A public release ignores the developer switches: ARGOS_DATA must not move its settings folder.
+          $env:ARGOS_DATA = Join-Path $env:RUNNER_TEMP 'argos-dev-data'
           $engine = Start-Process $exe -ArgumentList '--background' -PassThru
           $null = $engine.Handle # keeps the exit code readable once it ends
           $status = $null
@@ -92,6 +95,10 @@ jobs:
           if (-not $engine.WaitForExit(30000)) { $engine.Kill(); throw 'the engine did not exit' }
           if ($engine.ExitCode -ne 0) { throw "the engine exited with code $($engine.ExitCode)" }
           'engine: started, answered and closed'
+          if (Test-Path $env:ARGOS_DATA) { throw 'the public release followed ARGOS_DATA' }
+          if (-not (Test-Path "$env:APPDATA/Argos/logs")) { throw 'the engine kept no log in %APPDATA%\Argos' }
+          Remove-Item Env:ARGOS_DATA
+          'public release: developer switches off'
 
       - name: Keep the test output
         if: always()

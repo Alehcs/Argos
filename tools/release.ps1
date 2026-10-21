@@ -37,7 +37,9 @@ if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
 & (Join-Path $PSScriptRoot 'stage-runtime.ps1') -Dest $stage | Write-Output
 $obsVersion = (Get-Content (Join-Path $stage 'libobs-version.txt')).Trim()
 if ($obsVersion -ne $ExpectedObs) { throw "Installed OBS is $obsVersion, expected $ExpectedObs (pass -ExpectedObs after re-testing)" }
-dotnet publish (Join-Path $repo 'src\Argos') -c Release -o $stage --self-contained true "-p:Version=$Version" --nologo -v quiet
+# The real release turns the developer switches off (AppInfo.DeveloperSwitches); a test build (another PackId) keeps them.
+$public = if ($PackId -eq 'Argos') { 'true' } else { 'false' }
+dotnet publish (Join-Path $repo 'src\Argos') -c Release -o $stage --self-contained true "-p:Version=$Version" "-p:PublicRelease=$public" --nologo -v quiet
 if ($LASTEXITCODE -ne 0) { throw 'dotnet publish failed' }
 # Debug symbols and import libraries are only for developers.
 Get-ChildItem $stage -File | Where-Object { $_.Extension -in '.pdb', '.lib', '.xml' } | Remove-Item

@@ -37,8 +37,12 @@ public static class UpdateRules
 
     public static string? NotesUrl(string version, bool localSource) => localSource ? null : $"{Repository}/releases/tag/v{version}";
 
-    /// <summary>The local update folder named in Argos's settings folder (testing before publishing), if it exists.</summary>
-    public static string? LocalFeed(string appDataDir) => LocalSource(Path.Combine(appDataDir, "update-source.txt"));
+    /// <summary>
+    /// The local update folder named in Argos's settings folder (testing before publishing), if it exists; never in a
+    /// public release.
+    /// </summary>
+    public static string? LocalFeed(string appDataDir) =>
+        AppInfo.DeveloperSwitches ? LocalSource(Path.Combine(appDataDir, "update-source.txt")) : null;
 
     /// <summary>The local folder named in <paramref name="overrideFile"/> (testing before publishing), if it exists.</summary>
     public static string? LocalSource(string overrideFile)

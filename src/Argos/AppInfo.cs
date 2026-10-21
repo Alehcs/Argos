@@ -13,6 +13,17 @@ public static class AppInfo
     public const string PipeName = "Argos";
     public const string RunValueName = "Argos";
 
+    /// <summary>
+    /// The developer switches (ARGOS_DATA, ARGOS_FFMPEG, a local update folder) work in development and test builds
+    /// only: a public release (PublicRelease=true, as tools\release.ps1 builds it) never lets them redirect Argos.
+    /// </summary>
+    public static bool DeveloperSwitches =>
+#if PUBLIC_RELEASE
+        false;
+#else
+        true;
+#endif
+
     /// <summary>The full version, a prerelease part included ("1.0.0-beta.1"), without the build details after "+".</summary>
     public static string Version { get; } =
         (typeof(AppInfo).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "0.0.0").Split('+')[0];

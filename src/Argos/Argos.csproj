@@ -30,6 +30,11 @@
     <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
   </PropertyGroup>
 
+  <!-- The public release (tools\release.ps1 passes PublicRelease=true) turns the developer switches off: AppInfo.DeveloperSwitches. -->
+  <PropertyGroup Condition="'$(PublicRelease)' == 'true'">
+    <DefineConstants>$(DefineConstants);PUBLIC_RELEASE</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Using Remove="System.Windows.Forms" />
     <Using Remove="System.Drawing" />
