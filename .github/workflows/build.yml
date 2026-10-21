@@ -1,0 +1,58 @@
+name: Build and test
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push to the same branch replaces a run still going (Windows minutes count double on private repositories).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build
+        run: dotnet build Argos.sln -c Release -p:Platform=x64 --nologo
+
+      # Many tests need a gaming PC (OBS Studio installed, a GPU encoder, audio devices) that this runner lacks:
+      # for now they report here without failing the run.
+      - name: Tests
+        continue-on-error: true
+        timeout-minutes: 25
+        shell: pwsh
+        run: |
+          dotnet run --project tests/Argos.Tests -c Release --property:Platform=x64 --nologo 2>&1 | Tee-Object -FilePath test-results.txt
+          exit $LASTEXITCODE
+
+      - name: Test summary
+        if: always()
+        shell: pwsh
+        run: |
+          $lines = if (Test-Path test-results.txt) { Get-Content test-results.txt } else { @('The tests did not run.') }
+          $failed = @($lines | Where-Object { $_ -like 'FAIL *' })
+          $summary = @('## Tests', '', ($lines | Select-Object -Last 1))
+          if ($failed.Count -gt 0) { $summary += @('', "### Failed ($($failed.Count))", '', '```') + $failed + @('```') }
+          $summary | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+
+      - name: Keep the test output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results.txt
+          if-no-files-found: ignore
+          retention-days: 7
