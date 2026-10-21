@@ -44,12 +44,17 @@ Documento vivo: lo vamos afinando. Última actualización: 21 oct 2026.
 
 ## Fase 1: ganancias rápidas (aprobada; sin cambiar funciones)
 
-- [ ] **Precompilar el código (ReadyToRun):** menos CPU al arrancar con Windows y en el primer guardado de cada sesión.
-- [ ] **Ajustar el recolector de memoria de .NET:** algo menos de RAM y un hilo menos.
-- [ ] **En pausa o esperando un juego, detener también la captura de vídeo y los medidores de audio** (hoy solo se para
-  el búfer). Mientras el búfer graba no cambia nada. El micrófono sigue activo si Smart Save lo necesita (por ejemplo,
-  al grabar o probar la frase).
-- [ ] **Smart Save:** que los modelos de voz no reserven memoria de sobra.
+Rama `perf/phase-1`: compila y pasa los tests en GitHub; falta medir en un PC real.
+
+- [x] **Precompilar el código (ReadyToRun):** menos CPU al arrancar con Windows y en el primer guardado de cada sesión.
+  El programa publicado ocupa algo más (la compilación en GitHub muestra cuánto).
+- [x] **Memoria de .NET más ligera en el motor:** la limpieza de memoria del motor ya no usa un hilo propio en segundo
+  plano. La ventana de ajustes y el editor no cambian, para que sigan igual de fluidos.
+- [x] **Smart Save:** los modelos de voz ya no reservan memoria de sobra.
+- [ ] **Aplazada: detener la captura en pausa o esperando un juego.**
+  - Por qué: las capturas de pantalla y la grabación normal funcionan con el búfer en pausa y usan esa misma captura;
+    apagarla las dejaría en negro.
+  - Cómo hacerla bien: que la captura se encienda sola al pedir una captura o una grabación, y probarlo en un PC real.
 
 ## Fase 2: modos Normal y Rendimiento (aprobada)
 
