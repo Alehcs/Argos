@@ -9,10 +9,13 @@ namespace Argos.Tests;
 /// </summary>
 public static class CaptionRuntimeTests
 {
-    /// <summary>The runtime zip the release script keeps in the repository's releases folder (git-ignored).</summary>
-    static readonly string Zip = FindZip();
+    /// <summary>The runtime zip the release script keeps in the repository's releases folder (git-ignored), or null.</summary>
+    static readonly string? FoundZip = FindZip();
 
-    static string FindZip()
+    /// <summary>The zip; a PC that never made it (no third_party\whisper\bin) skips the tests that need it.</summary>
+    static string Zip => FoundZip ?? throw new SkipException("releases\\captions-runtime\\" + CaptionRuntime.AssetName + " (made from third_party\\whisper\\bin)");
+
+    static string? FindZip()
     {
         for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir != null; dir = dir.Parent)
         {
@@ -20,7 +23,7 @@ public static class CaptionRuntimeTests
             if (File.Exists(candidate))
                 return candidate;
         }
-        throw new FileNotFoundException("releases\\captions-runtime\\" + CaptionRuntime.AssetName + " not found (made from third_party\\whisper\\bin)");
+        return null;
     }
 
     static string Temp(string name) => Path.Combine(Path.GetTempPath(), "argos-tests", name + "-" + Guid.NewGuid().ToString("N"));
@@ -30,10 +33,11 @@ public static class CaptionRuntimeTests
     [Test]
     public static void The_runtime_downloads_checks_and_unpacks()
     {
+        string zip = Zip;
         string root = Temp("runtime");
         try
         {
-            var runtime = Runtime(Path.Combine(root, "runtime"), Path.GetFullPath(Zip));
+            var runtime = Runtime(Path.Combine(root, "runtime"), Path.GetFullPath(zip));
             Assert.True(!runtime.IsPresent, "not yet");
             double last = 0;
             runtime.Download(consent: true, new InlineProgress(v => last = v), CancellationToken.None).GetAwaiter().GetResult();
@@ -109,11 +113,12 @@ public static class CaptionRuntimeTests
     [Test]
     public static void The_question_counts_what_is_missing()
     {
+        string zip = Zip;
         string root = Temp("captions");
         try
         {
             var model = new CaptionModel(Path.Combine(root, "model"));
-            var runtime = Runtime(Path.Combine(root, "runtime"), Path.GetFullPath(Zip));
+            var runtime = Runtime(Path.Combine(root, "runtime"), Path.GetFullPath(zip));
             var maker = new CaptionMaker(model, runtime, "Argos.exe");
             Assert.True(!maker.Ready, "nothing yet");
             Assert.Equal(CaptionModel.Bytes + CaptionRuntime.Bytes, maker.DownloadBytes, "both");

@@ -289,6 +289,7 @@ public static class EditRenderTests
     [Test]
     public static void A_picture_look_works_in_a_fresh_process()
     {
+        Assert.Needs(TestFfmpeg.Folder != null, "the FFmpeg 8 DLLs from OBS");
         string dir = Path.Combine(Path.GetTempPath(), "argos-edit-tests", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(dir);
         string source = Path.Combine(dir, "shot.png"), target = Path.Combine(dir, "shot (edited).png");

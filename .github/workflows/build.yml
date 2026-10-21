@@ -28,10 +28,9 @@ jobs:
       - name: Build
         run: dotnet build Argos.sln -c Release -p:Platform=x64 --nologo
 
-      # Many tests need a gaming PC (OBS Studio installed, a GPU encoder, audio devices) that this runner lacks:
-      # for now they report here without failing the run.
+      # Tests that need what this runner lacks (OBS Studio's FFmpeg, the captions engine) are skipped; any other failure
+      # fails the run.
       - name: Tests
-        continue-on-error: true
         timeout-minutes: 25
         shell: pwsh
         run: |

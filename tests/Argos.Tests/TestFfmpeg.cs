@@ -16,7 +16,7 @@ static class TestFfmpeg
     public static void Load()
     {
         string? dir = Folder;
-        Assert.True(dir != null, "FFmpeg 8 DLLs from OBS not found");
+        Assert.Needs(dir != null, "the FFmpeg 8 DLLs from OBS");
         ClipTranscoder.Load(dir!);
     }
 }

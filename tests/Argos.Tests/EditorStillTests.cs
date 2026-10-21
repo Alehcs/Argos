@@ -71,7 +71,7 @@ public static class EditorStillTests
 
     static void OnSta(Action test)
     {
-        string? error = null;
+        Exception? error = null;
         var thread = new Thread(() =>
         {
             try
@@ -80,12 +80,14 @@ public static class EditorStillTests
             }
             catch (Exception e)
             {
-                error = e.ToString();
+                error = e;
             }
         });
         thread.SetApartmentState(ApartmentState.STA);
         thread.Start();
         thread.Join();
-        Assert.True(error == null, error ?? "");
+        if (error is SkipException)
+            throw error;
+        Assert.True(error == null, error?.ToString() ?? "");
     }
 }
