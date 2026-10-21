@@ -52,10 +52,11 @@ el motor arrancando, respondiendo y cerrándose). Falta medir el ahorro en un PC
 - [x] **Memoria de .NET más ligera en el motor:** la limpieza de memoria del motor ya no usa un hilo propio en segundo
   plano. La ventana de ajustes y el editor no cambian, para que sigan igual de fluidos.
 - [x] **Smart Save:** los modelos de voz ya no reservan memoria de sobra.
-- [ ] **Aplazada: detener la captura en pausa o esperando un juego.**
-  - Por qué: las capturas de pantalla y la grabación normal funcionan con el búfer en pausa y usan esa misma captura;
-    apagarla las dejaría en negro.
-  - Cómo hacerla bien: que la captura se encienda sola al pedir una captura o una grabación, y probarlo en un PC real.
+- ~~Detener la captura en pausa o esperando un juego.~~ **Descartada.**
+  - Solo actuaría cuando no se juega. Con el búfer en pausa ya están apagados el codificador y la memoria del búfer, así
+    que el ahorro sería pequeño.
+  - Las capturas de pantalla y la grabación normal usan esa misma captura con el búfer en pausa: tocarla podría
+    romperlas.
 
 ## Fase 2: modos Normal y Rendimiento (hecha)
 
