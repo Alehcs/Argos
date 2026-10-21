@@ -100,6 +100,32 @@ jobs:
           Remove-Item Env:ARGOS_DATA
           'public release: developer switches off'
 
+      # Pictures of the main pages (the "pages" artifact), to look at a change without a Windows PC.
+      - name: Render pages
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force pages | Out-Null
+          $exe = (Resolve-Path publish/Argos.exe).Path
+          $renders = @(
+              @('quality', 'en', ''), @('quality', 'en', 'performance'), @('quality', 'es', 'performance'),
+              @('capture', 'es', 'performance'), @('status', 'en', 'losing-frames'), @('status', 'es', 'losing-frames'))
+          foreach ($r in $renders) {
+              $png = Join-Path $PWD ("pages/{0}-{1}{2}.png" -f $r[0], $r[1], $(if ($r[2]) { '-' + $r[2] } else { '' }))
+              $arguments = @('--render', $r[0], $png, $r[1]) + $(if ($r[2]) { @($r[2]) } else { @() })
+              $p = Start-Process $exe -ArgumentList $arguments -NoNewWindow -Wait -PassThru
+              if ($p.ExitCode -ne 0 -or -not (Test-Path $png)) { throw "render $($r -join ' ') failed ($($p.ExitCode))" }
+              Split-Path $png -Leaf
+          }
+
+      - name: Keep the page pictures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages
+          path: pages/
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Keep the test output
         if: always()
         uses: actions/upload-artifact@v4
