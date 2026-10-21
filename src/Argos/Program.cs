@@ -60,11 +60,8 @@ public static class Program
                 }
             case "--render":
                 return Ui.SettingsApp.Render(args[1], args[2], args.Length > 3 ? args[3] : null, args.Length > 4 ? args[4] : null);
-            case "--write-icon":
-                // Argos.exe --write-icon <app.ico>: app.ico from the same drawing the window uses.
-                File.WriteAllBytes(args[1], AppIconArt.Ico());
-                Console.WriteLine($"wrote {args[1]}");
-                return 0;
+            case "--render-tray":
+                return RenderTray(args[1]);
             case "--perf":
                 return Ui.SettingsApp.Perf(args);
             case "--voice-info":
@@ -271,6 +268,38 @@ public static class Program
             Console.WriteLine("picture look: " + e.Message);
             return 1;
         }
+    }
+
+    /// <summary>
+    /// Argos.exe --render-tray &lt;out.png&gt;: every tray icon at the sizes the tray shows them (100% to 200% scale), on a
+    /// dark and on a light taskbar, each at its own size and four times larger, as Windows draws them.
+    /// </summary>
+    static int RenderTray(string path)
+    {
+        string[] kinds = ["active", "waiting", "paused", "recording", "saved", "error"];
+        int[] sizes = [16, 20, 24, 32];
+        const int zoom = 4, cellWidth = 4 + 32 + 8 + 32 * zoom + 8, cellHeight = 4 + 32 * zoom + 8;
+        System.Drawing.Color[] taskbars = [System.Drawing.Color.FromArgb(0x1C, 0x1C, 0x1C), System.Drawing.Color.FromArgb(0xEE, 0xEE, 0xEE)];
+        using var sheet = new System.Drawing.Bitmap(kinds.Length * cellWidth, taskbars.Length * sizes.Length * cellHeight);
+        using var g = System.Drawing.Graphics.FromImage(sheet);
+        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor; // the larger copy shows each pixel
+        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+        for (int t = 0; t < taskbars.Length; t++)
+        {
+            using var ground = new System.Drawing.SolidBrush(taskbars[t]);
+            g.FillRectangle(ground, 0, t * sizes.Length * cellHeight, sheet.Width, sizes.Length * cellHeight);
+            for (int s = 0; s < sizes.Length; s++)
+                for (int k = 0; k < kinds.Length; k++)
+                {
+                    using var icon = TrayController.DrawBitmap(kinds[k], sizes[s]);
+                    int x = k * cellWidth + 4, y = (t * sizes.Length + s) * cellHeight + 4;
+                    g.DrawImage(icon, new System.Drawing.Rectangle(x, y, sizes[s], sizes[s]));
+                    g.DrawImage(icon, new System.Drawing.Rectangle(x + 32 + 8, y, sizes[s] * zoom, sizes[s] * zoom));
+                }
+        }
+        sheet.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+        Console.WriteLine($"wrote {path}");
+        return 0;
     }
 
     /// <summary>Prints how the recorded Smart Save phrase varies and the thresholds that follow (no audio is played).</summary>

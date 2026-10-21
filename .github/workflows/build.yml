@@ -107,7 +107,7 @@ jobs:
           New-Item -ItemType Directory -Force pages | Out-Null
           $exe = (Resolve-Path publish/Argos.exe).Path
           $renders = @(
-              @('quality', 'en', ''), @('quality', 'en', 'performance'), @('quality', 'es', 'performance'),
+              @('quality', 'en', ''), @('quality', 'ar', ''), @('quality', 'en', 'performance'), @('quality', 'es', 'performance'),
               @('capture', 'es', 'performance'), @('status', 'en', 'losing-frames'), @('status', 'es', 'losing-frames'))
           foreach ($r in $renders) {
               $png = Join-Path $PWD ("pages/{0}-{1}{2}.png" -f $r[0], $r[1], $(if ($r[2]) { '-' + $r[2] } else { '' }))
@@ -116,6 +116,10 @@ jobs:
               if ($p.ExitCode -ne 0 -or -not (Test-Path $png)) { throw "render $($r -join ' ') failed ($($p.ExitCode))" }
               Split-Path $png -Leaf
           }
+          $tray = Join-Path $PWD 'pages/tray.png'
+          $p = Start-Process $exe -ArgumentList @('--render-tray', $tray) -NoNewWindow -Wait -PassThru
+          if ($p.ExitCode -ne 0 -or -not (Test-Path $tray)) { throw "render tray failed ($($p.ExitCode))" }
+          Split-Path $tray -Leaf
 
       - name: Keep the page pictures
         if: always()

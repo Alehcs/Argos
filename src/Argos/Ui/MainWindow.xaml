@@ -76,12 +76,8 @@
         <!-- Sidebar (spans the title bar so the window reads as one surface) -->
         <Border Grid.RowSpan="2" Background="{StaticResource NavBg}" BorderBrush="{StaticResource Stroke}" BorderThickness="0,0,1,0"/>
         <StackPanel Orientation="Horizontal" Margin="22,0,0,0" VerticalAlignment="Center">
-            <Grid Width="22" Height="22">
-                <Ellipse Width="18" Height="18" Stroke="{DynamicResource Accent}" StrokeThickness="2.2" StrokeDashArray="6 1.4"/>
-                <Ellipse Width="6" Height="6" Fill="{DynamicResource Accent}"/>
-            </Grid>
-            <!-- The name as drawn, in English or Arabic, set for the language in code -->
-            <Image x:Name="Wordmark" Height="22" Margin="6,0,0,0" VerticalAlignment="Center" FlowDirection="LeftToRight"
+            <!-- The logo as drawn, the mark and the name, the same in every language -->
+            <Image Source="/Argos;component/Ui/Assets/logo.png" Height="24" FlowDirection="LeftToRight"
                    RenderOptions.BitmapScalingMode="HighQuality" AutomationProperties.Name="{l:T app}"/>
         </StackPanel>
 

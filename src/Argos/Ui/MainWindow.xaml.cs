@@ -79,10 +79,6 @@ public partial class MainWindow : Window
         Closed += (_, _) => HotkeyBox.TypingChanged -= typing;
         _vm.SetTypingHotkey(false); // nothing left over from a window that closed while typing
         Title = Text.Get("app");
-        // The name as an image, six times the size shown.
-        Wordmark.Source = new System.Windows.Media.Imaging.BitmapImage(
-            new Uri($"pack://application:,,,/Argos;component/Ui/Assets/wordmark-{(Text.IsArabic ? "ar" : "en")}.png"));
-        Wordmark.Height = Text.IsArabic ? 28 : 22;
         FlowDirection = Text.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         SettingsApp.StartupTrace?.Invoke("window wiring");
 

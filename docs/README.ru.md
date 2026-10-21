@@ -1,4 +1,9 @@
-<h1 align="center">Argos</h1>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="media/logo-dark.png">
+    <img src="media/logo-light.png" alt="Argos" width="360">
+  </picture>
+</p>
 
 <h3 align="center">Мгновенный повтор для игр на Windows.</h3>
 

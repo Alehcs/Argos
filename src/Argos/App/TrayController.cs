@@ -7,7 +7,7 @@ namespace Argos.App;
 
 public enum TrayState { Starting, Active, Waiting, Paused, Recording, Error }
 
-/// <summary>Tray icon and menu. Icons are drawn at runtime, so no image files ship with the app.</summary>
+/// <summary>Tray icon and menu. The icons are the app's mark with the state drawn over it at startup.</summary>
 public sealed class TrayController : IDisposable
 {
     readonly NotifyIcon _icon = new();
@@ -28,7 +28,7 @@ public sealed class TrayController : IDisposable
         _flashTimer.Tick += (_, _) => { _flashTimer.Stop(); ApplyIcon(); };
     }
 
-    /// <summary>The tray icon's tooltip: just the name (the icon's color already tells the state).</summary>
+    /// <summary>The tray icon's tooltip: just the name (the icon already tells the state).</summary>
     public static string Tooltip => Text.Get("app");
 
     /// <summary>Everything the menu's items depend on. The tooltip is not part of it.</summary>
@@ -85,7 +85,10 @@ public sealed class TrayController : IDisposable
             _icons[kind] = DrawIcon(kind);
     }
 
-    /// <summary>Active and recording use the theme color; saved, error and idle keep their meaning colors.</summary>
+    /// <summary>
+    /// Active and recording use the theme color; saved, error and idle keep their meaning colors. Recording, saved, error
+    /// and paused show it as a dot on the mark.
+    /// </summary>
     public static uint ColorFor(string kind) => kind switch
     {
         "active" or "recording" => Settings.ThemeColors.Accent,
@@ -113,46 +116,53 @@ public sealed class TrayController : IDisposable
 
     static Icon DrawIcon(string kind)
     {
-        using var bmp = DrawBitmap(kind);
+        // Drawn at the size the tray shows icons at this scale, so Windows does not shrink a larger one.
+        using var bmp = DrawBitmap(kind, Math.Max(16, SystemInformation.SmallIconSize.Width));
         IntPtr h = bmp.GetHicon();
         var icon = (Icon)Icon.FromHandle(h).Clone();
         DestroyIcon(h);
         return icon;
     }
 
-    /// <summary>The 32 px tray picture for <paramref name="kind"/>: the app's mark in the state's color.</summary>
-    public static Bitmap DrawBitmap(string kind)
+    /// <summary>
+    /// The tray picture for <paramref name="kind"/>, <paramref name="size"/> px square: the mark in color while Argos keeps
+    /// the last minutes, in grey while it does not (waiting, paused, error). Recording, saved and error add a dot in their
+    /// color in the corner; paused, a grey dot with two bars.
+    /// </summary>
+    public static Bitmap DrawBitmap(string kind, int size = 32)
     {
-        const int size = 32;
-        var bmp = new Bitmap(size, size);
-        using (var g = Graphics.FromImage(bmp))
+        var bmp = AppIconArt.Mark(size, gray: kind is "waiting" or "paused" or "error");
+        if (kind is "active" or "waiting")
+            return bmp;
+        using var g = Graphics.FromImage(bmp);
+        g.SmoothingMode = SmoothingMode.AntiAlias;
+        g.PixelOffsetMode = PixelOffsetMode.Half; // whole numbers are pixel edges, so the dot and the bars sit on pixels
+        // The dot is ringed in the mark's own brown, so it stands apart from the mark at any size.
+        var dot = Dot(size);
+        int ring = Math.Max(1, (int)Math.Round(size / 16.0));
+        using var brown = new SolidBrush(Opaque(AppIconArt.Brown));
+        g.FillEllipse(brown, dot);
+        using (var fill = new SolidBrush(Opaque(ColorFor(kind))))
+            g.FillEllipse(fill, Rectangle.Inflate(dot, -ring, -ring));
+        if (kind == "paused")
         {
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.Clear(Color.Transparent);
-            using (var bg = new SolidBrush(Color.FromArgb(255, 46, 39, 38)))
-            using (var path = GdiShapes.Rounded(new RectangleF(1, 1, size - 2, size - 2), 8))
-                g.FillPath(bg, path);
-
-            Color accent = Color.FromArgb(unchecked((int)(0xFF000000 | ColorFor(kind))));
-            using var pen = new Pen(accent, 3f);
-            AppIconArt.DrawRing(g, pen, new RectangleF(6, 6, 20, 20));
-            using var brush = new SolidBrush(accent);
-            switch (kind)
-            {
-                case "paused":
-                    g.FillRectangle(brush, 12, 11, 3, 10);
-                    g.FillRectangle(brush, 17, 11, 3, 10);
-                    break;
-                case "recording":
-                    g.FillEllipse(brush, 10, 10, 12, 12);
-                    break;
-                default:
-                    g.FillEllipse(brush, 12, 12, 8, 8);
-                    break;
-            }
+            int bar = Math.Max(1, (int)Math.Round(dot.Width * 0.16)), gap = Math.Max(1, (int)Math.Round(dot.Width * 0.12));
+            int tall = (int)Math.Round(dot.Height * 0.42);
+            int left = dot.X + (dot.Width - 2 * bar - gap) / 2, top = dot.Y + (dot.Height - tall) / 2;
+            g.FillRectangle(brown, left, top, bar, tall);
+            g.FillRectangle(brown, left + bar + gap, top, bar, tall);
         }
         return bmp;
     }
+
+    /// <summary>Where a state's dot goes on a <paramref name="size"/> px tray picture: the bottom right corner.</summary>
+    internal static Rectangle Dot(int size)
+    {
+        int side = (int)Math.Round(size * 0.56);
+        return new Rectangle(size - side, size - side, side, side);
+    }
+
+    static Color Opaque(uint rgb) => Color.FromArgb(unchecked((int)(0xFF000000 | rgb)));
 
     public void Dispose()
     {

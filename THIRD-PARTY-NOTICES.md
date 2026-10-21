@@ -74,9 +74,3 @@ The icons in the interface come from the Segoe Fluent Icons font that ships with
 The X, TikTok and Instagram marks in the share panel are trademarks of their owners and only identify where a clip is posted. The round logo images were supplied by the project owner (TikTok's note filled in white and Instagram's circle trimmed to the image edge, for the dark tiles).
 
 The emoji pictures in the caption picker (`src/Argos/Ui/Assets/Emoji`) are Microsoft's Fluent Emoji designs as Windows 11 draws them (Segoe UI Emoji), MIT License, Copyright (c) Microsoft Corporation, <https://github.com/microsoft/fluentui-emoji>.
-
-## Wordmark fonts (in the name images only)
-
-The name in the sidebar (`src/Argos/Ui/Assets/wordmark-en.png`, `wordmark-ar.png`) is drawn from
-**Fraunces** (Undercase Type) and **Aref Ruqaa** (Abdullah Aref), both under the SIL Open Font License 1.1.
-The fonts themselves are not shipped.

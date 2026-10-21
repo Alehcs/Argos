@@ -51,6 +51,8 @@
     <!-- Platform marks on the share panel's tiles (supplied by the project owner) and the caption picker's emoji -->
     <Resource Include="Ui\Assets\**\*.png" />
     <EmbeddedResource Include="App\Lang\*.json" LogicalName="Lang.%(Filename).json" />
+    <!-- The window and tray icons (AppIconArt), the same file as the program's own icon -->
+    <EmbeddedResource Include="app.ico" LogicalName="app.ico" />
     <!-- The text tool's fonts (SIL Open Font License), loaded from the program folder's fonts\ -->
     <Content Include="Ui\Assets\Fonts\*.ttf" Link="fonts\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

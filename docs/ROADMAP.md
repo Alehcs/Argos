@@ -26,9 +26,8 @@ Documento vivo: lo vamos afinando. Última actualización: 21 oct 2026.
   - La línea "basado en Kairos": Argos parte de su código, y la licencia GPL pide conservar los avisos del autor original.
 - **Arreglos del original:** se pueden seguir trayendo. Git reconoce los archivos renombrados, aunque habrá algún
   conflicto pequeño de vez en cuando.
-- **Logo:** lo diseña Alejandro y lo entregará. Hasta entonces, solo dos imágenes muestran el nombre viejo: el nombre
-  dibujado en la barra lateral (`wordmark-en.png`, `wordmark-ar.png`) y los logos y capturas del README (`docs/media`).
-  Habrá que rehacer las capturas.
+- **Logo:** el de Alejandro (`docs/media/brand`), aplicado en todas partes (ver "Logo de Argos" más abajo). Solo
+  quedan con la interfaz vieja las capturas del README (`docs/media/screens`): hay que rehacerlas.
 - **Lenguaje:** seguimos en C#/.NET, sin reescribir en Rust. El trabajo pesado lo hacen OBS (C), la GPU y FFmpeg (C);
   reescribir ahorraría unas decenas de MB a cambio de meses de trabajo y mucho riesgo.
 
@@ -116,7 +115,14 @@ En GitHub compila, pasan los 503 tests y las capturas de las páginas se ven bie
 - [ ] **Marcadores (aprobado):** una tecla para marcar momentos durante grabaciones largas; en el editor aparecen en la
   línea de tiempo para saltar a ellos.
 - [ ] **Perfiles por juego:** calidad, duración y tipo de captura según el juego.
-- [ ] Logo de Argos (lo diseña Alejandro).
+- [x] **Logo de Argos** (diseño de Alejandro). Todas las imágenes salen de los dos originales con
+  `python3 -I tools/make-brand.py`:
+  - El símbolo: icono del programa, de la ventana y de la barra de tareas (`app.ico`), y la imagen pequeña del instalador.
+  - La bandeja: el símbolo a color mientras guarda los últimos minutos y en gris cuando no (esperando, en pausa, error).
+    Un punto en la esquina dice el resto: grabando (rosa), guardado (verde), error (ámbar), pausa (gris con dos barras).
+  - El logo completo: barra lateral de la ventana, imagen grande del instalador, README y vista previa para redes.
+  - [ ] Subir `docs/media/social-preview.png` a mano en GitHub (Settings → Social preview).
+  - [ ] Rehacer las capturas del README con la interfaz nueva.
 
 ## Seguridad y confianza
 

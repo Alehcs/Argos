@@ -55,7 +55,7 @@ public static class Text
         set => _current = Find(value) ?? Find(Fallback)!;
     }
 
-    /// <summary>Arabic itself (its own wordmark), not just any right-to-left language.</summary>
+    /// <summary>Arabic itself, not just any right-to-left language.</summary>
     public static bool IsArabic => _current.Code == "ar";
 
     /// <summary>Written right to left: the window, the toasts and the tray menu are mirrored.</summary>
