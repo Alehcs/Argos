@@ -1,9 +1,4 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="media/logo-dark.png">
-    <img src="media/logo-light.png" alt="Kairos" width="360">
-  </picture>
-</p>
+<h1 align="center">Argos</h1>
 
 <h3 align="center">Instant Replay für Windows-Spiele.</h3>
 
@@ -13,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BasilForge/Kairos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
+  <a href="https://github.com/Alehcs/Argos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
   <img src="https://img.shields.io/badge/license-GPL--2.0-3A3130?style=for-the-badge" alt="License: GPL-2.0">
   <img src="https://img.shields.io/badge/languages-7-3A3130?style=for-the-badge" alt="7 languages">
 </p>
@@ -28,11 +23,9 @@
   <b>Deutsch</b>
 </p>
 
-https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
+## Warum Argos
 
-## Warum Kairos
-
-- **Verpass keinen Moment.** Kairos hält die letzten 15 Sekunden bis 20 Minuten im Speicher (standardmäßig 5). Drück `Alt+F10`, und daraus wird ein Clip.
+- **Verpass keinen Moment.** Argos hält die letzten 15 Sekunden bis 20 Minuten im Speicher (standardmäßig 5). Drück `Alt+F10`, und daraus wird ein Clip.
 - **Smart Save.** Nimm einen eigenen Satz auf, in jeder Sprache, und sag ihn einfach, um einen Clip zu speichern oder einen Screenshot aufzunehmen. Läuft offline.
 - **Leicht.** Aufgenommen wird auf der Grafikkarte. Gemessen mit einem laufenden Spiel in 1440p60 AV1: 0,4 % CPU, keine verlorenen Frames.
 - **Direkt bearbeiten.** Schneiden, Tempo ändern, Text einfügen, zeichnen, weichzeichnen und automatische Untertitel auf deinem eigenen PC erstellen.
@@ -58,8 +51,8 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 
 ## Download
 
-1. Lade **Kairos-Setup.exe** aus dem [neuesten Release](https://github.com/BasilForge/Kairos/releases/latest) herunter.
-2. Starte sie und folge den Schritten: Wähle Sprache und Ordner (ohne Administratorrechte) und ob du eine Desktop-Verknüpfung möchtest und Kairos mit Windows starten soll.
+1. Lade **Argos-Setup.exe** aus dem [neuesten Release](https://github.com/Alehcs/Argos/releases/latest) herunter.
+2. Starte sie und folge den Schritten: Wähle Sprache und Ordner (ohne Administratorrechte) und ob du eine Desktop-Verknüpfung möchtest und Argos mit Windows starten soll.
 3. Spiel und drück `Alt+F10`, wenn etwas passiert.
 
 Windows warnt eventuell vor einem unbekannten Herausgeber (der Installer ist noch nicht signiert): wähle **Weitere Informationen** und dann **Trotzdem ausführen**.
@@ -70,7 +63,7 @@ Updates kommen direkt in der App und nie während einer Aufnahme. Beim Deinstall
 ## Funktionen
 
 <details>
-<summary>Alles, was Kairos kann</summary>
+<summary>Alles, was Argos kann</summary>
 
 - **Aufnahme:** ganzer Bildschirm, ein Fenster oder Spiele (automatisch erkannt), bis 4K bei 30 bis 240 fps.
 - **Encoding:** AV1, HEVC oder H.264 auf NVIDIA (NVENC), AMD (AMF) oder Intel (Quick Sync), mit x264 als Ausweichlösung.
@@ -81,15 +74,15 @@ Updates kommen direkt in der App und nie während einer Aufnahme. Beim Deinstall
 - **Editor:** schneiden und zusammenfügen, Tempo und Ton pro Teil, Text in vielen Schriften und Stilen, automatische Untertitel, Zeichnen, Formen, Weichzeichnen, Filter und Zuschneiden von Screenshots.
 - **Automatische Untertitel:** Whisper auf deiner Grafikkarte. Engine und Modell werden einmal heruntergeladen, nachdem du zugestimmt hast, und lassen sich in den Einstellungen entfernen.
 - **Teilen:** X, TikTok, Instagram oder alle, über die eigene Seite jeder Plattform; auf einem Bildstreifen kürzen und auf 9:16 zuschneiden.
-- **Sieben Sprachen:** Englisch, Arabisch, Chinesisch, Russisch, Spanisch, Portugiesisch und Deutsch. Beim ersten Start folgt Kairos der Windows-Sprache.
+- **Sieben Sprachen:** Englisch, Arabisch, Chinesisch, Russisch, Spanisch, Portugiesisch und Deutsch. Beim ersten Start folgt Argos der Windows-Sprache.
 - **Leise:** startet mit Windows im Infobereich, ohne Pop-ups oder Töne, außer du schaltest sie ein.
 
 </details>
 
 ## Datenschutz
 
-- Keine Telemetrie, keine Analysen, kein Kairos-Konto.
-- Kairos geht nur online, wenn du es willst: um zu posten, was du teilst, um die automatischen Untertitel einmal herunterzuladen und um einmal am Tag nach einer neuen Version zu suchen (abschaltbar).
+- Keine Telemetrie, keine Analysen, kein Argos-Konto.
+- Argos geht nur online, wenn du es willst: um zu posten, was du teilst, um die automatischen Untertitel einmal herunterzuladen und um einmal am Tag nach einer neuen Version zu suchen (abschaltbar).
 - Smart Save und automatische Untertitel hören nur auf deinem PC zu.
 
 ## Aus dem Quellcode bauen
@@ -97,7 +90,7 @@ Updates kommen direkt in der App und nie während einer Aufnahme. Beim Deinstall
 <details>
 <summary>Für Entwickler</summary>
 
-Kairos ist eine .NET-10-App (WPF und WinForms), die **libobs**, die Engine von [OBS Studio](https://obsproject.com), nur mit den nötigen Modulen einbindet und FFmpeg zum Bearbeiten und Teilen nutzt.
+Argos ist eine .NET-10-App (WPF und WinForms), die **libobs**, die Engine von [OBS Studio](https://obsproject.com), nur mit den nötigen Modulen einbindet und FFmpeg zum Bearbeiten und Teilen nutzt.
 
 ```powershell
 .\tools\build-whisper.ps1               # once: the auto captions engine (needs the Vulkan SDK and VS Build Tools)
@@ -111,6 +104,6 @@ Der Build kopiert libobs 32.2.2 aus einem installierten OBS Studio.
 
 ## Lizenz
 
-Kairos ist freie Software unter der [GNU General Public License v2.0 oder neuer](../LICENSE), derselben Lizenz wie libobs. Jedes Release enthält den vollständigen Quellcode. Komponenten von Drittanbietern und ihre Lizenzen stehen in [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
+Argos ist freie Software unter der [GNU General Public License v2.0 oder neuer](../LICENSE), derselben Lizenz wie libobs. Jedes Release enthält den vollständigen Quellcode. Komponenten von Drittanbietern und ihre Lizenzen stehen in [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
 
-<sub>*Kairos* (καιρός) ist griechisch für *der richtige Moment*.</sub>
+<sub>*Argos* (Ἄργος Πανόπτης) ist der hundertäugige Riese der griechischen Mythologie, der niemals aufhörte zu wachen. Basiert auf [Kairos](https://github.com/BasilForge/Kairos) von BasilForge.</sub>

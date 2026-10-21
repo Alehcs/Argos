@@ -1,9 +1,4 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="media/logo-dark.png">
-    <img src="media/logo-light.png" alt="Kairos" width="360">
-  </picture>
-</p>
+<h1 align="center">Argos</h1>
 
 <h3 align="center">为 Windows 游戏打造的即时回放。</h3>
 
@@ -13,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BasilForge/Kairos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
+  <a href="https://github.com/Alehcs/Argos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
   <img src="https://img.shields.io/badge/license-GPL--2.0-3A3130?style=for-the-badge" alt="License: GPL-2.0">
   <img src="https://img.shields.io/badge/languages-7-3A3130?style=for-the-badge" alt="7 languages">
 </p>
@@ -28,11 +23,9 @@
   <a href="README.de.md">Deutsch</a>
 </p>
 
-https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
+## 为什么选择 Argos
 
-## 为什么选择 Kairos
-
-- **不错过任何精彩瞬间。** Kairos 在内存中保留最近 15 秒到 20 分钟（默认 5 分钟）。按下 `Alt+F10`，它就成为一个片段。
+- **不错过任何精彩瞬间。** Argos 在内存中保留最近 15 秒到 20 分钟（默认 5 分钟）。按下 `Alt+F10`，它就成为一个片段。
 - **智能保存。** 录下你自己的口令（任何语言都可以），之后只需说出它，即可保存片段或截图。完全离线运行。
 - **轻巧。** 使用显卡录制。以 1440p60 AV1 运行游戏时实测：CPU 占用 0.4%，无丢帧。
 - **就地编辑。** 剪辑、调速、添加文字、涂画、模糊，并在你自己的电脑上生成自动字幕。
@@ -58,8 +51,8 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 
 ## 下载
 
-1. 从[最新版本](https://github.com/BasilForge/Kairos/releases/latest)下载 **Kairos-Setup.exe**。
-2. 运行它并按步骤操作：选择语言和安装文件夹（无需管理员权限），以及是否创建桌面快捷方式、是否随 Windows 启动 Kairos。
+1. 从[最新版本](https://github.com/Alehcs/Argos/releases/latest)下载 **Argos-Setup.exe**。
+2. 运行它并按步骤操作：选择语言和安装文件夹（无需管理员权限），以及是否创建桌面快捷方式、是否随 Windows 启动 Argos。
 3. 开始游戏，精彩时刻出现时按下 `Alt+F10`。
 
 Windows 可能会提示未知发布者（安装程序尚未签名）：选择 **更多信息**，然后选择 **仍要运行**。
@@ -70,7 +63,7 @@ Windows 可能会提示未知发布者（安装程序尚未签名）：选择 **
 ## 功能
 
 <details>
-<summary>Kairos 的全部功能</summary>
+<summary>Argos 的全部功能</summary>
 
 - **捕获：** 全屏、单个窗口或游戏（自动识别），最高 4K，30 到 240 fps。
 - **编码：** 在 NVIDIA (NVENC)、AMD (AMF) 或 Intel (Quick Sync) 上使用 AV1、HEVC 或 H.264，并以 x264 作为后备。
@@ -88,8 +81,8 @@ Windows 可能会提示未知发布者（安装程序尚未签名）：选择 **
 
 ## 隐私
 
-- 没有遥测，没有数据分析，也没有 Kairos 账号。
-- Kairos 只在你需要时联网：发布你分享的内容、一次性下载自动字幕，以及每天检查一次新版本（可以关闭）。
+- 没有遥测，没有数据分析，也没有 Argos 账号。
+- Argos 只在你需要时联网：发布你分享的内容、一次性下载自动字幕，以及每天检查一次新版本（可以关闭）。
 - 智能保存和自动字幕只在你的电脑上收听。
 
 ## 从源码构建
@@ -97,7 +90,7 @@ Windows 可能会提示未知发布者（安装程序尚未签名）：选择 **
 <details>
 <summary>面向开发者</summary>
 
-Kairos 是一个 .NET 10 应用（WPF 和 WinForms），内置 [OBS Studio](https://obsproject.com) 的引擎 **libobs**（只包含所需模块），并使用 FFmpeg 进行编辑和分享。
+Argos 是一个 .NET 10 应用（WPF 和 WinForms），内置 [OBS Studio](https://obsproject.com) 的引擎 **libobs**（只包含所需模块），并使用 FFmpeg 进行编辑和分享。
 
 ```powershell
 .\tools\build-whisper.ps1               # once: the auto captions engine (needs the Vulkan SDK and VS Build Tools)
@@ -111,6 +104,6 @@ dotnet run --project tests\Kairos.Tests # the tests
 
 ## 许可证
 
-Kairos 是自由软件，采用 [GNU 通用公共许可证 v2.0 或更高版本](../LICENSE)，与 libobs 的许可证相同。每个版本都附带完整源代码。第三方组件及其许可证列于 [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md)。
+Argos 是自由软件，采用 [GNU 通用公共许可证 v2.0 或更高版本](../LICENSE)，与 libobs 的许可证相同。每个版本都附带完整源代码。第三方组件及其许可证列于 [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md)。
 
-<sub>*Kairos*（καιρός）在希腊语中意为“*恰当的时刻*”。</sub>
+<sub>*Argos*（Ἄργος Πανόπτης）是希腊神话中长着一百只眼睛、从不停止守望的巨人。基于 BasilForge 的 [Kairos](https://github.com/BasilForge/Kairos)。</sub>

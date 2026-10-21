@@ -17,10 +17,10 @@
     <TieredPGO>false</TieredPGO>
     <!-- Builds name the repository "/_/" instead of the folder on the build machine. -->
     <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..'))=/_/</PathMap>
-    <AssemblyName>Kairos</AssemblyName>
+    <AssemblyName>Argos</AssemblyName>
     <RootNamespace>Kairos</RootNamespace>
     <Version>1.0.1</Version>
-    <Product>Kairos</Product>
+    <Product>Argos</Product>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <ApplicationIcon>app.ico</ApplicationIcon>
     <!-- Library IntelliSense files (WebView2 ships ~0.8 MB of them) are for developers, not users. -->

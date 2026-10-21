@@ -1,6 +1,6 @@
 # Third-party notices
 
-Kairos's own source code is licensed under the GNU General Public License, version 2 or (at your option) any later version. See [LICENSE](LICENSE).
+Argos's own source code, based on [Kairos](https://github.com/BasilForge/Kairos) by BasilForge, is licensed under the GNU General Public License, version 2 or (at your option) any later version. See [LICENSE](LICENSE).
 
 Release builds include the following components, copied unmodified from OBS Studio 32.2.2 (<https://github.com/obsproject/obs-studio>).
 
@@ -35,14 +35,14 @@ Sharing (converting a clip for X, TikTok, Instagram or the clipboard) uses the F
 | FFmpeg.AutoGen 8.1.0 | `FFmpeg.AutoGen.dll` | MIT | <https://github.com/Ruslan-B/FFmpeg.AutoGen> |
 | Microsoft WebView2 SDK 1.0.4258.31 | `Microsoft.Web.WebView2.Core.dll`, `Microsoft.Web.WebView2.Wpf.dll`, `Microsoft.Web.WebView2.WinForms.dll`, `WebView2Loader.dll` | BSD-3-Clause (Microsoft) | <https://www.nuget.org/packages/Microsoft.Web.WebView2> |
 
-Their license texts ship as `licenses/FFmpeg.AutoGen-LICENSE.txt` (Copyright (c) 2025 Ruslan Balanukhin), `licenses/WebView2-SDK-LICENSE.txt` and `licenses/WebView2-SDK-NOTICE.txt` (Copyright (C) Microsoft Corporation). X, TikTok and Instagram open in Kairos's own window on the Edge WebView2 runtime that comes with Windows (not redistributed). Kairos posts the prepared file and caption through each site's own page when the user presses "Post to …" in Kairos; it uses no service API, and sign-ins stay on the PC (`%LOCALAPPDATA%\Kairos\WebView`) until the user signs out in the share panel.
+Their license texts ship as `licenses/FFmpeg.AutoGen-LICENSE.txt` (Copyright (c) 2025 Ruslan Balanukhin), `licenses/WebView2-SDK-LICENSE.txt` and `licenses/WebView2-SDK-NOTICE.txt` (Copyright (C) Microsoft Corporation). X, TikTok and Instagram open in Argos's own window on the Edge WebView2 runtime that comes with Windows (not redistributed). Argos posts the prepared file and caption through each site's own page when the user presses "Post to …" in Argos; it uses no service API, and sign-ins stay on the PC (`%LOCALAPPDATA%\Argos\WebView`) until the user signs out in the share panel.
 
 Auto captions in the editor use:
 
 | Component | Files | License | Source |
 |---|---|---|---|
-| whisper.cpp 1.9.5 and ggml, built with the Vulkan backend | `whisper.dll`, `ggml.dll`, `ggml-base.dll`, `ggml-cpu.dll`, `ggml-vulkan.dll`: not in the installer; downloaded on first use with the model, after the user agrees, into `%LOCALAPPDATA%\Kairos\captions\runtime` | MIT | <https://github.com/ggml-org/whisper.cpp>, tag v1.9.5 (built unmodified by `tools/build-whisper.ps1`) |
-| Whisper large-v3-turbo model, quantized (`ggml-large-v3-turbo-q5_0.bin`) | not shipped: downloaded on first use, after the user agrees, into `%LOCALAPPDATA%\Kairos\captions\model` | MIT (OpenAI Whisper) | <https://huggingface.co/ggerganov/whisper.cpp> |
+| whisper.cpp 1.9.5 and ggml, built with the Vulkan backend | `whisper.dll`, `ggml.dll`, `ggml-base.dll`, `ggml-cpu.dll`, `ggml-vulkan.dll`: not in the installer; downloaded on first use with the model, after the user agrees, into `%LOCALAPPDATA%\Argos\captions\runtime` | MIT | <https://github.com/ggml-org/whisper.cpp>, tag v1.9.5 (built unmodified by `tools/build-whisper.ps1`) |
+| Whisper large-v3-turbo model, quantized (`ggml-large-v3-turbo-q5_0.bin`) | not shipped: downloaded on first use, after the user agrees, into `%LOCALAPPDATA%\Argos\captions\model` | MIT (OpenAI Whisper) | <https://huggingface.co/ggerganov/whisper.cpp> |
 
 Its license text ships as `licenses/whisper.cpp-LICENSE.txt` (Copyright (c) 2023-2026 The ggml authors).
 
@@ -63,10 +63,10 @@ The editor's text tool ships these fonts, unmodified, from Google Fonts (<https:
 Their license texts ship as `licenses/Almarai-OFL.txt`, `licenses/Lalezar-OFL.txt`, `licenses/Rakkas-OFL.txt`, `licenses/ArefRuqaa-OFL.txt`,
 `licenses/Cairo-OFL.txt`, `licenses/Tajawal-OFL.txt`, `licenses/Changa-OFL.txt`, `licenses/ReemKufi-OFL.txt` and `licenses/Lemonada-OFL.txt`.
 
-Kairos's own complete source code for each release is published beside it as `Kairos-<version>-source.zip` (made from the exact commit the release was built from). The corresponding source code for every other GPL component is available at the links above, at the version tag listed. The .NET runtime (MIT) is included in the program.
+Argos's own complete source code for each release is published beside it as `Argos-<version>-source.zip` (made from the exact commit the release was built from). The corresponding source code for every other GPL component is available at the links above, at the version tag listed. The .NET runtime (MIT) is included in the program.
 
 Installing and updating use **Velopack 1.2.161** (`Velopack.dll` in the program, and Velopack's `Update.exe` and the
-Kairos.exe stub in the install folder), MIT License, Copyright (c) 2021 Caelan Sayler and (c) 2024 Velopack Ltd.,
+Argos.exe stub in the install folder), MIT License, Copyright (c) 2021 Caelan Sayler and (c) 2024 Velopack Ltd.,
 <https://github.com/velopack/velopack>. Its license text ships as `licenses/Velopack-LICENSE.txt`.
 
 The icons in the interface come from the Segoe Fluent Icons font that ships with Windows; they are not redistributed.

@@ -16,11 +16,11 @@ public static class ObsLog
 
     public static string? CurrentPath { get; private set; }
 
-    public static string FileName(DateTime time, string prefix = "kairos") =>
+    public static string FileName(DateTime time, string prefix = "argos") =>
         $"{prefix}-{time.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.CultureInfo.InvariantCulture)}.log";
 
-    /// <param name="prefix">"kairos" for the engine; "settings" for the settings window, so each keeps its own last files.</param>
-    public static void Open(string logDir, string prefix = "kairos")
+    /// <param name="prefix">"argos" for the engine; "settings" for the settings window, so each keeps its own last files.</param>
+    public static void Open(string logDir, string prefix = "argos")
     {
         if (_writer != null)
             return;

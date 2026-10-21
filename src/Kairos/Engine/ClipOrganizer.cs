@@ -10,7 +10,7 @@ public static class ClipOrganizer
     static readonly HashSet<string> ShellProcesses = new(StringComparer.OrdinalIgnoreCase)
     {
         "explorer", "shellexperiencehost", "startmenuexperiencehost", "searchhost", "searchapp",
-        "lockapp", "textinputhost", "kairos",
+        "lockapp", "textinputhost", "argos",
     };
 
     static readonly HashSet<string> ReservedNames = new(StringComparer.OrdinalIgnoreCase)

@@ -332,7 +332,7 @@ public static class CaptionTests
         }
         string ffmpeg = TestFfmpeg.Folder ?? throw new InvalidOperationException("FFmpeg 8 DLLs from OBS not found");
         double reached = 0;
-        var captions = CaptionProcess.Run(Path.Combine(AppContext.BaseDirectory, "Kairos.exe"), Voice("chat_v1_1"), 0,
+        var captions = CaptionProcess.Run(Path.Combine(AppContext.BaseDirectory, "Argos.exe"), Voice("chat_v1_1"), 0,
             new InlineProgress(v => reached = v), CancellationToken.None, ffmpeg, Whisper).GetAwaiter().GetResult();
         Assert.True(captions.Count > 0 && captions.Any(c => c.Text.Any(char.IsLetter)), "lines came back");
         Assert.Near(1, reached, 1e-9, "progress came back");
@@ -352,7 +352,7 @@ public static class CaptionTests
         bool cancelled = false;
         try
         {
-            CaptionProcess.Run(Path.Combine(AppContext.BaseDirectory, "Kairos.exe"), Voice("chat_v1_1"), 0, null, cts.Token, ffmpeg, Whisper)
+            CaptionProcess.Run(Path.Combine(AppContext.BaseDirectory, "Argos.exe"), Voice("chat_v1_1"), 0, null, cts.Token, ffmpeg, Whisper)
                 .GetAwaiter().GetResult();
         }
         catch (OperationCanceledException)

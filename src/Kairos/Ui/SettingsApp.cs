@@ -123,7 +123,7 @@ public static partial class SettingsApp
 #pragma warning restore WPF0001
         app.Resources.MergedDictionaries.Add(new ResourceDictionary
         {
-            Source = new Uri("pack://application:,,,/Kairos;component/Ui/Theme.xaml"),
+            Source = new Uri("pack://application:,,,/Argos;component/Ui/Theme.xaml"),
         });
         StartupTrace?.Invoke("theme");
         ThemeCursors.Install(); // Kairos's own mouse pointers on every window

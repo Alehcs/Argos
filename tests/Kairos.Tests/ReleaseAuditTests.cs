@@ -80,7 +80,7 @@ public static class ReleaseAuditTests
             CultureInfo.CurrentCulture = new CultureInfo("ar-SA");
             var t = new DateTime(2026, 10, 12, 21, 9, 50);
             Assert.Equal(Path.Combine(@"C:\Clips", "Game 2026-10-12 21-09-50.mp4"), ClipOrganizer.TargetPath(@"C:\Clips", "Game", t, false), "clip");
-            Assert.Equal("kairos-2026-10-12 21-09-50.log", ObsLog.FileName(t), "log");
+            Assert.Equal("argos-2026-10-12 21-09-50.log", ObsLog.FileName(t), "log");
             Assert.Equal("settings-2026-10-12 21-09-50.log", ObsLog.FileName(t, "settings"), "the settings window's own log");
         }
         finally

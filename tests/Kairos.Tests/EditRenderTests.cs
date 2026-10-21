@@ -308,7 +308,7 @@ public static class EditRenderTests
         sta.Join();
 
         string obs = @"C:\Program Files\obs-studio\bin\64bit";
-        var start = new System.Diagnostics.ProcessStartInfo(Path.Combine(AppContext.BaseDirectory, "Kairos.exe"))
+        var start = new System.Diagnostics.ProcessStartInfo(Path.Combine(AppContext.BaseDirectory, "Argos.exe"))
         {
             UseShellExecute = false,
             CreateNoWindow = true,

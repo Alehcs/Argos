@@ -4,6 +4,6 @@
   Build the solution first, then build again so the exe takes the new icon.
 #>
 param([string]$Out = (Join-Path $PSScriptRoot '..\src\Kairos\app.ico'))
-$exe = Join-Path $PSScriptRoot '..\src\Kairos\bin\x64\Debug\net9.0-windows\win-x64\Kairos.exe'
+$exe = Join-Path $PSScriptRoot '..\src\Kairos\bin\x64\Debug\net10.0-windows\win-x64\Argos.exe'
 if (-not (Test-Path $exe)) { throw "Build Kairos.sln first: $exe not found" }
 & $exe --write-icon ([System.IO.Path]::GetFullPath($Out)) | Out-String | Write-Output

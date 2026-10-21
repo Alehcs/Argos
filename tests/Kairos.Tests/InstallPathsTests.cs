@@ -56,12 +56,12 @@ public static class InstallPathsTests
         try
         {
             Directory.CreateDirectory(Path.Combine(root, "current"));
-            string exe = Path.Combine(root, "current", "Kairos.exe");
+            string exe = Path.Combine(root, "current", "Argos.exe");
             Assert.Equal(null, InstallPaths.RootFor(exe), "no Update.exe: not installed");
             File.WriteAllBytes(Path.Combine(root, "Update.exe"), []);
             Assert.Equal(root, InstallPaths.RootFor(exe), "installed");
-            Assert.Equal(Path.Combine(root, "Kairos.exe"), InstallPaths.StubFor(root), "Start menu and autostart point at the stub");
-            Assert.Equal(null, InstallPaths.RootFor(Path.Combine(root, "Kairos.exe")), "the stub itself is not the program");
+            Assert.Equal(Path.Combine(root, "Argos.exe"), InstallPaths.StubFor(root), "Start menu and autostart point at the stub");
+            Assert.Equal(null, InstallPaths.RootFor(Path.Combine(root, "Argos.exe")), "the stub itself is not the program");
         }
         finally
         {

@@ -1,16 +1,16 @@
 #Requires -Version 7
 <#
-  Builds a Kairos release into releases\ (git-ignored, and the local update folder for testing):
-  - Kairos-Setup.exe, the install wizard people download (Inno Setup 6, installer\Kairos.iss), which carries
-    Kairos-win-Setup.exe, Velopack's one-click installer, and runs it into the folder chosen in the wizard;
+  Builds an Argos release into releases\ (git-ignored, and the local update folder for testing):
+  - Argos-Setup.exe, the install wizard people download (Inno Setup 6, installer\Kairos.iss), which carries
+    Argos-win-Setup.exe, Velopack's one-click installer, and runs it into the folder chosen in the wizard;
   - the update files (full and delta packages, releases.win.json); the Visual C++ runtime is installed by the
     Setup only when the PC lacks it;
-  - Kairos-<version>-source.zip, the release's complete source (the GPL), from the commit it is built from;
+  - Argos-<version>-source.zip, the release's complete source (the GPL), from the commit it is built from;
   - captions-runtime\kairos-captions-runtime-1.9.5.zip, auto captions' engine, made once from third_party\whisper\bin.
   Nothing is uploaded: publishing is a separate step, run only when the owner says so.
 #>
 param(
-    [string]$PackId = 'Kairos',
+    [string]$PackId = 'Argos',
     [string]$Version,
     [string]$Out = 'releases',
     [string]$ExpectedObs = '32.2.2'
@@ -31,7 +31,7 @@ $out = if ([IO.Path]::IsPathRooted($Out)) { $Out } else { Join-Path $repo $Out }
 $vpk = (Get-Command vpk -ErrorAction SilentlyContinue)?.Source ?? (Join-Path $env:USERPROFILE '.dotnet\tools\vpk.exe')
 if (-not (Test-Path $vpk)) { throw 'vpk not found: dotnet tool install -g vpk --version 1.2.161' }
 
-# The program, in one folder: libobs from the installed OBS (read only), then Kairos with .NET inside.
+# The program, in one folder: libobs from the installed OBS (read only), then Argos with .NET inside.
 $stage = Join-Path $repo "dist\stage-$PackId-$Version"
 if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
 & (Join-Path $PSScriptRoot 'stage-runtime.ps1') -Dest $stage | Write-Output
@@ -46,7 +46,7 @@ Copy-Item (Join-Path $repo 'licenses') $stage -Recurse
 
 # The installer and the update files.
 New-Item -ItemType Directory -Force $out | Out-Null
-& $vpk pack --packId $PackId --packVersion $Version --packDir $stage --mainExe Kairos.exe --packTitle $PackId --packAuthors Kairos `
+& $vpk pack --packId $PackId --packVersion $Version --packDir $stage --mainExe Argos.exe --packTitle $PackId --packAuthors Argos `
     --icon (Join-Path $repo 'src\Kairos\app.ico') --shortcuts StartMenuRoot --framework vcredist145-x64 --releaseNotes $notes --outputDir $out
 if ($LASTEXITCODE -ne 0) { throw 'vpk pack failed' }
 # The release page carries the Setup only: no portable zip.
@@ -59,11 +59,11 @@ if (-not $iscc) { throw 'Inno Setup 6 not found: winget install JRSoftware.InnoS
 & $iscc /Qp "/DAppVersion=$Version" "/DPackId=$PackId" "/DOutDir=$out" (Join-Path $repo 'installer\Kairos.iss')
 if ($LASTEXITCODE -ne 0) { throw 'the install wizard did not build' }
 
-if ($PackId -eq 'Kairos') {
+if ($PackId -eq 'Argos') {
     # The GPL: this release's complete source, from the commit it was built from.
-    $source = Join-Path $out "Kairos-$Version-source.zip"
+    $source = Join-Path $out "Argos-$Version-source.zip"
     if (Test-Path $source) { Remove-Item $source }
-    git -C $repo archive --format=zip --prefix="Kairos-$Version-source/" -o $source HEAD
+    git -C $repo archive --format=zip --prefix="Argos-$Version-source/" -o $source HEAD
     if ($LASTEXITCODE -ne 0) { throw 'git archive failed' }
 }
 

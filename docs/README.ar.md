@@ -1,9 +1,4 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="media/logo-dark.png">
-    <img src="media/logo-light.png" alt="Kairos" width="360">
-  </picture>
-</p>
+<h1 align="center">Argos</h1>
 
 <h3 align="center">الإعادة الفورية لألعاب ويندوز.</h3>
 
@@ -13,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BasilForge/Kairos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
+  <a href="https://github.com/Alehcs/Argos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
   <img src="https://img.shields.io/badge/license-GPL--2.0-3A3130?style=for-the-badge" alt="License: GPL-2.0">
   <img src="https://img.shields.io/badge/languages-7-3A3130?style=for-the-badge" alt="7 languages">
 </p>
@@ -28,13 +23,11 @@
   <a href="README.de.md">Deutsch</a>
 </p>
 
-https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
-
 <div dir="rtl">
 
-## لماذا كايروس
+## لماذا أرغوس
 
-- **لا تفوتك اللحظة.** يحتفظ كايروس في الذاكرة بآخر 15 ثانية إلى 20 دقيقة (5 دقائق افتراضيًا). اضغط `Alt+F10` فتصبح مقطعًا.
+- **لا تفوتك اللحظة.** يحتفظ أرغوس في الذاكرة بآخر 15 ثانية إلى 20 دقيقة (5 دقائق افتراضيًا). اضغط `Alt+F10` فتصبح مقطعًا.
 - **الحفظ الذكي.** سجّل عبارة من اختيارك، بأي لغة أو لهجة، ثم قلها لحفظ مقطع أو التقاط لقطة شاشة. يعمل دون إنترنت.
 - **خفيف.** يسجّل على بطاقة الرسوميات. قِيس أثناء تشغيل لعبة بدقة 1440p60 وترميز AV1:‏ 0.4% من المعالج، دون أي إطار مفقود.
 - **حرّر في مكانه.** قُصّ، وغيّر السرعة، وأضف نصًا، وارسم، وطمّس، واصنع تسميات توضيحية تلقائية على جهازك.
@@ -60,8 +53,8 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 
 ## التنزيل
 
-1. نزّل **Kairos-Setup.exe** من [أحدث إصدار](https://github.com/BasilForge/Kairos/releases/latest).
-2. شغّله واتبع الخطوات: اختر اللغة ومجلد التثبيت (دون صلاحيات المسؤول)، وهل تريد اختصارًا على سطح المكتب وتشغيل كايروس مع ويندوز.
+1. نزّل **Argos-Setup.exe** من [أحدث إصدار](https://github.com/Alehcs/Argos/releases/latest).
+2. شغّله واتبع الخطوات: اختر اللغة ومجلد التثبيت (دون صلاحيات المسؤول)، وهل تريد اختصارًا على سطح المكتب وتشغيل أرغوس مع ويندوز.
 3. العب، واضغط `Alt+F10` حين يحدث ما يستحق.
 
 قد يحذّرك ويندوز من ناشر غير معروف (المثبّت غير موقَّع بعد): اختر **مزيد من المعلومات** ثم **تشغيل على أي حال**.
@@ -72,7 +65,7 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 ## الميزات
 
 <details>
-<summary>كل ما يقدّمه كايروس</summary>
+<summary>كل ما يقدّمه أرغوس</summary>
 
 - **الالتقاط:** الشاشة كاملة، أو نافذة واحدة، أو الألعاب (تُكتشف تلقائيًا)، حتى 4K وبمعدل 30 إلى 240 إطارًا في الثانية.
 - **الترميز:** AV1 أو HEVC أو H.264 على NVIDIA (NVENC) أو AMD (AMF) أو Intel (Quick Sync)، مع x264 بديلًا.
@@ -90,8 +83,8 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 
 ## الخصوصية
 
-- لا قياس عن بُعد، ولا تحليلات، ولا حساب لدى كايروس.
-- لا يتصل كايروس بالإنترنت إلا حين تطلب: لنشر ما تشاركه، ولتنزيل التسميات التوضيحية التلقائية مرة واحدة، وللتحقق من وجود إصدار أحدث مرة يوميًا (ويمكنك إيقاف ذلك).
+- لا قياس عن بُعد، ولا تحليلات، ولا حساب لدى أرغوس.
+- لا يتصل أرغوس بالإنترنت إلا حين تطلب: لنشر ما تشاركه، ولتنزيل التسميات التوضيحية التلقائية مرة واحدة، وللتحقق من وجود إصدار أحدث مرة يوميًا (ويمكنك إيقاف ذلك).
 - يعمل الحفظ الذكي والتسميات التوضيحية التلقائية على جهازك فقط.
 
 ## البناء من المصدر
@@ -99,7 +92,7 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 <details>
 <summary>للمطوّرين</summary>
 
-كايروس تطبيق ‎.NET 10 (WPF وWinForms) يستضيف **libobs**، محرك [OBS Studio](https://obsproject.com)، بالوحدات التي يحتاجها فقط، ويستخدم FFmpeg للتحرير والمشاركة.
+أرغوس تطبيق ‎.NET 10 (WPF وWinForms) يستضيف **libobs**، محرك [OBS Studio](https://obsproject.com)، بالوحدات التي يحتاجها فقط، ويستخدم FFmpeg للتحرير والمشاركة.
 
 <div dir="ltr">
 
@@ -117,8 +110,8 @@ dotnet run --project tests\Kairos.Tests # the tests
 
 ## الترخيص
 
-كايروس برنامج حر مرخَّص بموجب [رخصة جنو العمومية العامة، الإصدار 2.0 أو أحدث](../LICENSE)، وهي رخصة libobs نفسها. يأتي كل إصدار مع شيفرته المصدرية كاملة، والمكوّنات الخارجية وتراخيصها مذكورة في [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
+أرغوس برنامج حر مرخَّص بموجب [رخصة جنو العمومية العامة، الإصدار 2.0 أو أحدث](../LICENSE)، وهي رخصة libobs نفسها. يأتي كل إصدار مع شيفرته المصدرية كاملة، والمكوّنات الخارجية وتراخيصها مذكورة في [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
 
-<sub>كلمة *Kairos* (καιρός) يونانية تعني *اللحظة المناسبة*.</sub>
+<sub>*أرغوس* (Ἄργος Πανόπτης) هو العملاق ذو المئة عين في الأساطير اليونانية، الذي لم يكفّ عن المراقبة. مبني على [Kairos](https://github.com/BasilForge/Kairos) من BasilForge.</sub>
 
 </div>

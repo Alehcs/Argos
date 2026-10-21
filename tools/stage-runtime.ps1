@@ -3,7 +3,7 @@
   folder: DLLs and helpers beside Kairos.exe, obs-plugins\64bit, data). OBS itself is only read, never modified.
 #>
 param(
-    [string]$Dest = 'D:\Kairos',
+    [string]$Dest = 'D:\Argos',
     [string]$Obs = 'C:\Program Files\obs-studio'
 )
 

@@ -21,13 +21,18 @@ public sealed class CaptionRuntime(string folder, string source)
     public const string Tag = $"captions-runtime-{WhisperVersion}";
     public const long Bytes = 14_848_938;
     const string Sha256 = "9b0a98ccfdc482b21e4d4a6a33ce825d735043e2dc3a40e6f269214fb031d18a";
+    /// <summary>
+    /// Where the engine is published: the original Kairos project's release. Argos downloads that same build, checked by
+    /// its size and SHA-256 above, until it publishes its own.
+    /// </summary>
+    const string Origin = "https://github.com/BasilForge/Kairos";
     public static readonly string[] Files = ["whisper.dll", "ggml.dll", "ggml-base.dll", "ggml-cpu.dll", "ggml-vulkan.dll"];
 
     /// <summary>From the GitHub release, or (testing before publishing) the local update folder's captions-runtime\.</summary>
     public static CaptionRuntime Default { get; } = new(Path.Combine(CaptionFiles.Root, "runtime"),
         UpdateRules.LocalFeed(Settings.SettingsStore.AppDataDir) is { } feed
             ? Path.Combine(feed, "captions-runtime", AssetName)
-            : $"{UpdateRules.Repository}/releases/download/{Tag}/{AssetName}");
+            : $"{Origin}/releases/download/{Tag}/{AssetName}");
 
     public string Folder => folder;
 

@@ -38,7 +38,7 @@ public static class ThemeEverywhereTests
     public static void Drop_down_lists_menus_and_tooltips_use_the_warm_theme_not_windows_grey() => OnSta(() =>
     {
         var theme = (System.Windows.ResourceDictionary)System.Windows.Application.LoadComponent(
-            new Uri("/Kairos;component/Ui/Theme.xaml", UriKind.Relative));
+            new Uri("/Argos;component/Ui/Theme.xaml", UriKind.Relative));
         System.Windows.Media.Color Of(string key) => ((SolidColorBrush)theme[key]).Color;
         var surface = Of("Surface");
         var stroke = Of("Stroke");

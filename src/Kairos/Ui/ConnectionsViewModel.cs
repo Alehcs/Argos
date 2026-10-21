@@ -28,7 +28,7 @@ public sealed class AccountRow(SharePlatform platform, ICommand action) : INotif
 
     public SharePlatform Platform { get; } = platform;
     public string Name => ShareViewModel.PlatformName(Platform);
-    public string Logo => $"pack://application:,,,/Kairos;component/Ui/Assets/{Platform.ToString().ToLowerInvariant()}.png";
+    public string Logo => $"pack://application:,,,/Argos;component/Ui/Assets/{Platform.ToString().ToLowerInvariant()}.png";
     public ICommand ActionCommand { get; } = action;
 
     /// <summary>Null while not known yet.</summary>

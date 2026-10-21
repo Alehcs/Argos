@@ -81,7 +81,7 @@ public partial class MainWindow : Window
         Title = Text.Get("app");
         // Drawn once from Fraunces (Kai + italic ro) and Aref Ruqaa (كا + slanted يرو), six times the size shown.
         Wordmark.Source = new System.Windows.Media.Imaging.BitmapImage(
-            new Uri($"pack://application:,,,/Kairos;component/Ui/Assets/wordmark-{(Text.IsArabic ? "ar" : "en")}.png"));
+            new Uri($"pack://application:,,,/Argos;component/Ui/Assets/wordmark-{(Text.IsArabic ? "ar" : "en")}.png"));
         Wordmark.Height = Text.IsArabic ? 28 : 22;
         FlowDirection = Text.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         SettingsApp.StartupTrace?.Invoke("window wiring");
@@ -219,7 +219,7 @@ public partial class MainWindow : Window
             return null;
         }
         // Auto captions run Whisper in a hidden Kairos process of their own (Kairos.exe --captions).
-        captions ??= new Edit.CaptionMaker(Engine.Captions.CaptionModel.Default, Engine.Captions.CaptionRuntime.Default, Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, "Kairos.exe"));
+        captions ??= new Edit.CaptionMaker(Engine.Captions.CaptionModel.Default, Engine.Captions.CaptionRuntime.Default, Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, AppInfo.Name + ".exe"));
         var vm = new Edit.EditorViewModel(start, isPicture, mode, aspect, audioStreams, captions);
         var view = new Edit.EditorView(vm);
         view.SetPicture(still);

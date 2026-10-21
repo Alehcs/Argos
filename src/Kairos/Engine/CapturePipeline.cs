@@ -78,13 +78,13 @@ public sealed class CapturePipeline : IDisposable
         BuildScene(monitor?.Id ?? "", baseW, baseH);
         BuildAudio();
         BuildEncoders();
-        _replay = CreateReplayOutput("Kairos replay", "Kairos %CCYY-%MM-%DD %hh-%mm-%ss", _s.Replay.Seconds);
+        _replay = CreateReplayOutput("Kairos replay", $"{AppInfo.Name} %CCYY-%MM-%DD %hh-%mm-%ss", _s.Replay.Seconds);
         _onReplaySaved = (_, _) => OnSaved(_replay, quick: false);
         Obs.signal_handler_connect(Obs.obs_output_get_signal_handler(_replay), "saved", _onReplaySaved, IntPtr.Zero);
 
         if (_s.Replay.QuickEnabled)
         {
-            _quick = CreateReplayOutput("Kairos quick", "Kairos quick %CCYY-%MM-%DD %hh-%mm-%ss", _s.Replay.QuickSeconds);
+            _quick = CreateReplayOutput("Kairos quick", $"{AppInfo.Name} quick %CCYY-%MM-%DD %hh-%mm-%ss", _s.Replay.QuickSeconds);
             _onQuickSaved = (_, _) => OnSaved(_quick, quick: true);
             Obs.signal_handler_connect(Obs.obs_output_get_signal_handler(_quick), "saved", _onQuickSaved, IntPtr.Zero);
         }

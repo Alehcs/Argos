@@ -6,12 +6,12 @@ namespace Kairos;
 /// <summary>Every name the app registers with Windows, in one place so a rename is a single edit.</summary>
 public static class AppInfo
 {
-    public const string Name = "Kairos";
-    public const string EngineMutex = @"Local\Kairos.Engine";
-    public const string SettingsMutex = @"Local\Kairos.Settings";
-    public const string SettingsShowEvent = @"Local\Kairos.Settings.Show";
-    public const string PipeName = "Kairos";
-    public const string RunValueName = "Kairos";
+    public const string Name = "Argos";
+    public const string EngineMutex = @"Local\Argos.Engine";
+    public const string SettingsMutex = @"Local\Argos.Settings";
+    public const string SettingsShowEvent = @"Local\Argos.Settings.Show";
+    public const string PipeName = "Argos";
+    public const string RunValueName = "Argos";
 
     /// <summary>The full version, a prerelease part included ("1.0.0-beta.1"), without the build details after "+".</summary>
     public static string Version { get; } =

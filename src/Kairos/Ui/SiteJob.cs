@@ -22,7 +22,7 @@ public sealed class SiteJob : INotifyPropertyChanged
 
     public SharePlatform Platform { get; }
     public string Name => ShareViewModel.PlatformName(Platform);
-    public string Logo => $"pack://application:,,,/Kairos;component/Ui/Assets/{Platform.ToString().ToLowerInvariant()}.png";
+    public string Logo => $"pack://application:,,,/Argos;component/Ui/Assets/{Platform.ToString().ToLowerInvariant()}.png";
     public ICommand OpenCommand { get; }
 
     public string StatusText => _status;

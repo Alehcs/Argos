@@ -114,7 +114,7 @@ public static class CaptionRuntimeTests
         {
             var model = new CaptionModel(Path.Combine(root, "model"));
             var runtime = Runtime(Path.Combine(root, "runtime"), Path.GetFullPath(Zip));
-            var maker = new CaptionMaker(model, runtime, "Kairos.exe");
+            var maker = new CaptionMaker(model, runtime, "Argos.exe");
             Assert.True(!maker.Ready, "nothing yet");
             Assert.Equal(CaptionModel.Bytes + CaptionRuntime.Bytes, maker.DownloadBytes, "both");
             runtime.Download(consent: true, null, CancellationToken.None).GetAwaiter().GetResult();

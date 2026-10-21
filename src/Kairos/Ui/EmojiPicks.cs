@@ -5,7 +5,7 @@ public sealed record EmojiPick(string Emoji)
 {
     /// <summary>"1f525.png": the code points, as the pictures in Ui/Assets/Emoji are named.</summary>
     public string File => string.Join("-", EnumerateCodePoints(Emoji).Select(c => c.ToString("x"))) + ".png";
-    public string Source => "pack://application:,,,/Kairos;component/Ui/Assets/Emoji/" + File;
+    public string Source => "pack://application:,,,/Argos;component/Ui/Assets/Emoji/" + File;
 
     static IEnumerable<int> EnumerateCodePoints(string s)
     {

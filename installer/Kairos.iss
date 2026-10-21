@@ -10,7 +10,7 @@
   #define AppVersion "1.0.0"
 #endif
 #ifndef PackId
-  #define PackId "Kairos"
+  #define PackId "Argos"
 #endif
 #ifndef OutDir
   #define OutDir "..\releases"
@@ -22,8 +22,8 @@ AppId={#PackId}.Wizard
 AppName={#PackId}
 AppVersion={#AppVersion}
 AppVerName={#PackId} {#AppVersion}
-AppPublisher=Kairos
-AppPublisherURL=https://github.com/BasilForge/Kairos
+AppPublisher=Argos
+AppPublisherURL=https://github.com/Alehcs/Argos
 DefaultDirName={code:DefaultDir}
 UsePreviousAppDir=no
 DisableWelcomePage=no
@@ -63,48 +63,48 @@ ru.LangCode=ru
 es.LangCode=es
 ptBR.LangCode=pt-BR
 de.LangCode=de
-en.StartWithWindows=Start Kairos with Windows, so instant replay is ready when you play
-ar.StartWithWindows=تشغيل Kairos مع بدء ويندوز، لتكون الإعادة الفورية جاهزة حين تلعب
-zhHans.StartWithWindows=随 Windows 启动 Kairos，玩游戏时即时回放已就绪
-ru.StartWithWindows=Запускать Kairos вместе с Windows, чтобы мгновенный повтор был готов, когда вы играете
-es.StartWithWindows=Iniciar Kairos con Windows, para que la repetición instantánea esté lista cuando juegues
-ptBR.StartWithWindows=Iniciar o Kairos com o Windows, para o replay instantâneo estar pronto quando você jogar
-de.StartWithWindows=Kairos mit Windows starten, damit Instant Replay beim Spielen bereit ist
-en.InstallingApp=Installing Kairos…
-ar.InstallingApp=جارٍ تثبيت Kairos…
-zhHans.InstallingApp=正在安装 Kairos…
-ru.InstallingApp=Установка Kairos…
-es.InstallingApp=Instalando Kairos…
-ptBR.InstallingApp=Instalando o Kairos…
-de.InstallingApp=Kairos wird installiert…
-en.KairosRunning=Kairos is running. Quit it first (right-click its icon by the clock, then Exit), then choose Retry.
-ar.KairosRunning=يعمل Kairos الآن. أغلقه أولًا (انقر بزر الفأرة الأيمن على أيقونته بجوار الساعة، ثم «خروج»)، ثم اختر «إعادة المحاولة».
-zhHans.KairosRunning=Kairos 正在运行。请先退出它（右键单击时钟旁的图标，然后选择“退出”），再选择“重试”。
-ru.KairosRunning=Kairos запущен. Сначала закройте его (щёлкните правой кнопкой по его значку у часов и выберите «Выход»), затем нажмите «Повтор».
-es.KairosRunning=Kairos está abierto. Ciérralo primero (clic derecho en su icono junto al reloj y luego «Salir») y después elige Reintentar.
-ptBR.KairosRunning=O Kairos está aberto. Feche-o primeiro (clique com o botão direito no ícone ao lado do relógio e depois em «Sair») e escolha Repetir.
-de.KairosRunning=Kairos läuft. Beende es zuerst (Rechtsklick auf sein Symbol neben der Uhr, dann „Beenden“) und wähle dann Wiederholen.
-en.InstallFailed=Kairos could not be installed (error %1). Please try again.
-ar.InstallFailed=تعذّر تثبيت Kairos (الخطأ %1). يُرجى المحاولة مرة أخرى.
-zhHans.InstallFailed=无法安装 Kairos（错误 %1）。请重试。
-ru.InstallFailed=Не удалось установить Kairos (ошибка %1). Попробуйте ещё раз.
-es.InstallFailed=No se pudo instalar Kairos (error %1). Inténtalo de nuevo.
-ptBR.InstallFailed=Não foi possível instalar o Kairos (erro %1). Tente novamente.
-de.InstallFailed=Kairos konnte nicht installiert werden (Fehler %1). Bitte versuche es erneut.
-en.FolderNotEmpty=Please choose an empty or new folder. Uninstalling Kairos removes its whole folder, so it must not share one with other files.
-ar.FolderNotEmpty=يُرجى اختيار مجلد فارغ أو جديد. إزالة Kairos تحذف مجلده كاملًا، لذا يجب ألا يحوي ملفات أخرى.
-zhHans.FolderNotEmpty=请选择一个空文件夹或新文件夹。卸载 Kairos 会删除其整个文件夹，因此该文件夹不能包含其他文件。
-ru.FolderNotEmpty=Выберите пустую или новую папку. При удалении Kairos удаляется вся его папка, поэтому в ней не должно быть других файлов.
-es.FolderNotEmpty=Elige una carpeta vacía o nueva. Al desinstalar Kairos se borra toda su carpeta, así que no debe compartirla con otros archivos.
-ptBR.FolderNotEmpty=Escolha uma pasta vazia ou nova. Desinstalar o Kairos apaga a pasta inteira, então ela não pode ter outros arquivos.
-de.FolderNotEmpty=Bitte wähle einen leeren oder neuen Ordner. Beim Deinstallieren entfernt Kairos seinen ganzen Ordner, er darf also keine anderen Dateien enthalten.
-en.FolderNotWritable=Kairos cannot write to this folder. Choose one in your user folder or on another drive (folders such as Program Files need administrator rights).
-ar.FolderNotWritable=لا يستطيع Kairos الكتابة في هذا المجلد. اختر مجلدًا داخل مجلد المستخدم أو على قرص آخر (مجلدات مثل Program Files تحتاج صلاحيات المسؤول).
-zhHans.FolderNotWritable=Kairos 无法写入此文件夹。请选择用户文件夹中或其他磁盘上的文件夹（Program Files 等文件夹需要管理员权限）。
-ru.FolderNotWritable=Kairos не может записывать в эту папку. Выберите папку в своём профиле или на другом диске (для папок вроде Program Files нужны права администратора).
-es.FolderNotWritable=Kairos no puede escribir en esta carpeta. Elige una en tu carpeta de usuario o en otra unidad (carpetas como Program Files requieren permisos de administrador).
-ptBR.FolderNotWritable=O Kairos não consegue gravar nesta pasta. Escolha uma na sua pasta de usuário ou em outra unidade (pastas como Arquivos de Programas exigem direitos de administrador).
-de.FolderNotWritable=Kairos kann in diesen Ordner nicht schreiben. Wähle einen in deinem Benutzerordner oder auf einem anderen Laufwerk (Ordner wie Programme brauchen Administratorrechte).
+en.StartWithWindows=Start Argos with Windows, so instant replay is ready when you play
+ar.StartWithWindows=تشغيل Argos مع بدء ويندوز، لتكون الإعادة الفورية جاهزة حين تلعب
+zhHans.StartWithWindows=随 Windows 启动 Argos，玩游戏时即时回放已就绪
+ru.StartWithWindows=Запускать Argos вместе с Windows, чтобы мгновенный повтор был готов, когда вы играете
+es.StartWithWindows=Iniciar Argos con Windows, para que la repetición instantánea esté lista cuando juegues
+ptBR.StartWithWindows=Iniciar o Argos com o Windows, para o replay instantâneo estar pronto quando você jogar
+de.StartWithWindows=Argos mit Windows starten, damit Instant Replay beim Spielen bereit ist
+en.InstallingApp=Installing Argos…
+ar.InstallingApp=جارٍ تثبيت Argos…
+zhHans.InstallingApp=正在安装 Argos…
+ru.InstallingApp=Установка Argos…
+es.InstallingApp=Instalando Argos…
+ptBR.InstallingApp=Instalando o Argos…
+de.InstallingApp=Argos wird installiert…
+en.KairosRunning=Argos is running. Quit it first (right-click its icon by the clock, then Exit), then choose Retry.
+ar.KairosRunning=يعمل Argos الآن. أغلقه أولًا (انقر بزر الفأرة الأيمن على أيقونته بجوار الساعة، ثم «خروج»)، ثم اختر «إعادة المحاولة».
+zhHans.KairosRunning=Argos 正在运行。请先退出它（右键单击时钟旁的图标，然后选择“退出”），再选择“重试”。
+ru.KairosRunning=Argos запущен. Сначала закройте его (щёлкните правой кнопкой по его значку у часов и выберите «Выход»), затем нажмите «Повтор».
+es.KairosRunning=Argos está abierto. Ciérralo primero (clic derecho en su icono junto al reloj y luego «Salir») y después elige Reintentar.
+ptBR.KairosRunning=O Argos está aberto. Feche-o primeiro (clique com o botão direito no ícone ao lado do relógio e depois em «Sair») e escolha Repetir.
+de.KairosRunning=Argos läuft. Beende es zuerst (Rechtsklick auf sein Symbol neben der Uhr, dann „Beenden“) und wähle dann Wiederholen.
+en.InstallFailed=Argos could not be installed (error %1). Please try again.
+ar.InstallFailed=تعذّر تثبيت Argos (الخطأ %1). يُرجى المحاولة مرة أخرى.
+zhHans.InstallFailed=无法安装 Argos（错误 %1）。请重试。
+ru.InstallFailed=Не удалось установить Argos (ошибка %1). Попробуйте ещё раз.
+es.InstallFailed=No se pudo instalar Argos (error %1). Inténtalo de nuevo.
+ptBR.InstallFailed=Não foi possível instalar o Argos (erro %1). Tente novamente.
+de.InstallFailed=Argos konnte nicht installiert werden (Fehler %1). Bitte versuche es erneut.
+en.FolderNotEmpty=Please choose an empty or new folder. Uninstalling Argos removes its whole folder, so it must not share one with other files.
+ar.FolderNotEmpty=يُرجى اختيار مجلد فارغ أو جديد. إزالة Argos تحذف مجلده كاملًا، لذا يجب ألا يحوي ملفات أخرى.
+zhHans.FolderNotEmpty=请选择一个空文件夹或新文件夹。卸载 Argos 会删除其整个文件夹，因此该文件夹不能包含其他文件。
+ru.FolderNotEmpty=Выберите пустую или новую папку. При удалении Argos удаляется вся его папка, поэтому в ней не должно быть других файлов.
+es.FolderNotEmpty=Elige una carpeta vacía o nueva. Al desinstalar Argos se borra toda su carpeta, así que no debe compartirla con otros archivos.
+ptBR.FolderNotEmpty=Escolha uma pasta vazia ou nova. Desinstalar o Argos apaga a pasta inteira, então ela não pode ter outros arquivos.
+de.FolderNotEmpty=Bitte wähle einen leeren oder neuen Ordner. Beim Deinstallieren entfernt Argos seinen ganzen Ordner, er darf also keine anderen Dateien enthalten.
+en.FolderNotWritable=Argos cannot write to this folder. Choose one in your user folder or on another drive (folders such as Program Files need administrator rights).
+ar.FolderNotWritable=لا يستطيع Argos الكتابة في هذا المجلد. اختر مجلدًا داخل مجلد المستخدم أو على قرص آخر (مجلدات مثل Program Files تحتاج صلاحيات المسؤول).
+zhHans.FolderNotWritable=Argos 无法写入此文件夹。请选择用户文件夹中或其他磁盘上的文件夹（Program Files 等文件夹需要管理员权限）。
+ru.FolderNotWritable=Argos не может записывать в эту папку. Выберите папку в своём профиле или на другом диске (для папок вроде Program Files нужны права администратора).
+es.FolderNotWritable=Argos no puede escribir en esta carpeta. Elige una en tu carpeta de usuario o en otra unidad (carpetas como Program Files requieren permisos de administrador).
+ptBR.FolderNotWritable=O Argos não consegue gravar nesta pasta. Escolha uma na sua pasta de usuário ou em outra unidade (pastas como Arquivos de Programas exigem direitos de administrador).
+de.FolderNotWritable=Argos kann in diesen Ordner nicht schreiben. Wähle einen in deinem Benutzerordner oder auf einem anderen Laufwerk (Ordner wie Programme brauchen Administratorrechte).
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"
@@ -223,7 +223,7 @@ begin
   try
     Locator := CreateOleObject('WbemScripting.SWbemLocator');
     Service := Locator.ConnectServer('.', 'root\CIMV2');
-    Found := Service.ExecQuery('SELECT ExecutablePath FROM Win32_Process WHERE Name = ''Kairos.exe''');
+    Found := Service.ExecQuery('SELECT ExecutablePath FROM Win32_Process WHERE Name = ''{#PackId}.exe''');
     for I := 0 to Found.Count - 1 do
     begin
       Item := Found.ItemIndex(I);

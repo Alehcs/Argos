@@ -54,7 +54,7 @@ public static class UpdateRulesTests
     public static void Notes_link_only_for_github()
     {
         Assert.Equal(null, UpdateRules.NotesUrl("1.0.1", localSource: true), "a local folder has no page");
-        Assert.Equal("https://github.com/BasilForge/Kairos/releases/tag/v1.0.1", UpdateRules.NotesUrl("1.0.1", localSource: false), "GitHub");
+        Assert.Equal("https://github.com/Alehcs/Argos/releases/tag/v1.0.1", UpdateRules.NotesUrl("1.0.1", localSource: false), "GitHub");
     }
 
     [Test]
@@ -129,7 +129,7 @@ public static class UpdateRulesTests
         service.NewVersion += told.Add;
         service.Check(T0).GetAwaiter().GetResult();
         Assert.Equal(UpdateState.Available, service.Status!.State, "available");
-        Assert.Equal("https://github.com/BasilForge/Kairos/releases/tag/v1.0.1", service.Status.NotesUrl, "its notes");
+        Assert.Equal("https://github.com/Alehcs/Argos/releases/tag/v1.0.1", service.Status.NotesUrl, "its notes");
         new UpdateService(updater, seen, localSource: false).Check(T0.AddDays(1)).GetAwaiter().GetResult();
         Assert.Equal(1, told.Count, "told once, even after a restart of Kairos");
 

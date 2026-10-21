@@ -1,9 +1,4 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/media/logo-dark.png">
-    <img src="docs/media/logo-light.png" alt="Kairos" width="360">
-  </picture>
-</p>
+<h1 align="center">Argos</h1>
 
 <h3 align="center">Instant replay for Windows games.</h3>
 
@@ -13,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BasilForge/Kairos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
+  <a href="https://github.com/Alehcs/Argos/releases/latest"><img src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-F48BA4?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows"></a>
   <img src="https://img.shields.io/badge/license-GPL--2.0-3A3130?style=for-the-badge" alt="License: GPL-2.0">
   <img src="https://img.shields.io/badge/languages-7-3A3130?style=for-the-badge" alt="7 languages">
 </p>
@@ -28,11 +23,9 @@
   <a href="docs/README.de.md">Deutsch</a>
 </p>
 
-https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
+## Why Argos
 
-## Why Kairos
-
-- **Never miss the moment.** Kairos keeps the last 15 seconds to 20 minutes in memory (5 by default). Press `Alt+F10` and it becomes a clip.
+- **Never miss the moment.** Argos keeps the last 15 seconds to 20 minutes in memory (5 by default). Press `Alt+F10` and it becomes a clip.
 - **Smart Save.** Record a phrase of your own, in any language, then just say it to save a clip or take a screenshot. It runs offline.
 - **Light.** It records on your graphics card. Measured while a game ran at 1440p60 AV1: 0.4% CPU, no dropped frames.
 - **Edit in place.** Cut, change the speed, add text, draw, blur, and make auto captions on your own PC.
@@ -58,8 +51,8 @@ https://github.com/user-attachments/assets/c7afb475-f4a2-4356-acc5-327935e879e2
 
 ## Download
 
-1. Download **Kairos-Setup.exe** from the [latest release](https://github.com/BasilForge/Kairos/releases/latest).
-2. Run it and follow the steps: pick your language and the folder (no administrator rights needed), and whether you want a desktop shortcut and Kairos to start with Windows.
+1. Download **Argos-Setup.exe** from the [latest release](https://github.com/Alehcs/Argos/releases/latest).
+2. Run it and follow the steps: pick your language and the folder (no administrator rights needed), and whether you want a desktop shortcut and Argos to start with Windows.
 3. Play, then press `Alt+F10` when something happens.
 
 Windows may warn about an unknown publisher (the installer is not signed yet): choose **More info**, then **Run anyway**.
@@ -70,7 +63,7 @@ Updates come from inside the app, and never during a recording. Uninstalling kee
 ## Features
 
 <details>
-<summary>Everything Kairos does</summary>
+<summary>Everything Argos does</summary>
 
 - **Capture:** full screen, one window, or games (picked up automatically), up to 4K at 30 to 240 fps.
 - **Encoding:** AV1, HEVC or H.264 on NVIDIA (NVENC), AMD (AMF) or Intel (Quick Sync), with x264 as a fallback.
@@ -88,8 +81,8 @@ Updates come from inside the app, and never during a recording. Uninstalling kee
 
 ## Privacy
 
-- No telemetry, no analytics, no Kairos account.
-- Kairos goes online only when you ask: to post what you share, to download auto captions once, and to check this page for a newer version once a day (you can turn that off).
+- No telemetry, no analytics, no Argos account.
+- Argos goes online only when you ask: to post what you share, to download auto captions once, and to check this page for a newer version once a day (you can turn that off).
 - Smart Save and auto captions listen on your PC only.
 
 ## Build from source
@@ -97,7 +90,7 @@ Updates come from inside the app, and never during a recording. Uninstalling kee
 <details>
 <summary>For developers</summary>
 
-Kairos is a .NET 10 app (WPF and WinForms) that hosts **libobs**, the engine of [OBS Studio](https://obsproject.com), with only the modules it needs, and uses FFmpeg for editing and sharing.
+Argos is a .NET 10 app (WPF and WinForms) that hosts **libobs**, the engine of [OBS Studio](https://obsproject.com), with only the modules it needs, and uses FFmpeg for editing and sharing.
 
 ```powershell
 .\tools\build-whisper.ps1               # once: the auto captions engine (needs the Vulkan SDK and VS Build Tools)
@@ -111,6 +104,6 @@ The build copies libobs 32.2.2 from an installed OBS Studio.
 
 ## License
 
-Kairos is free software under the [GNU General Public License v2.0 or later](LICENSE), the same license as libobs. Every release includes its complete source code. Third-party components and their licenses are listed in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+Argos is free software under the [GNU General Public License v2.0 or later](LICENSE), the same license as libobs. Every release includes its complete source code. Third-party components and their licenses are listed in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
-<sub>*Kairos* (καιρός) is Greek for *the right moment*.</sub>
+<sub>*Argos* (Ἄργος Πανόπτης) is the hundred-eyed giant of Greek mythology who never stopped watching. Based on [Kairos](https://github.com/BasilForge/Kairos) by BasilForge.</sub>
