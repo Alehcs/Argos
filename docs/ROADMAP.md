@@ -44,7 +44,8 @@ Documento vivo: lo vamos afinando. Última actualización: 21 oct 2026.
 
 ## Fase 1: ganancias rápidas (aprobada; sin cambiar funciones)
 
-Rama `perf/phase-1`: compila y pasa los tests en GitHub; falta medir en un PC real.
+Fusionada en master. En GitHub compila, pasa los tests y el programa publicado arranca (prueba de publicar en redes y
+el motor arrancando, respondiendo y cerrándose). Falta medir el ahorro en un PC real.
 
 - [x] **Precompilar el código (ReadyToRun):** menos CPU al arrancar con Windows y en el primer guardado de cada sesión.
   El programa publicado pasa de 181 a 185 MB (+4 MB, un 2 %; el instalador va comprimido, así que crece menos).
