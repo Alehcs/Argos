@@ -47,7 +47,7 @@ Documento vivo: lo vamos afinando. Última actualización: 21 oct 2026.
 Rama `perf/phase-1`: compila y pasa los tests en GitHub; falta medir en un PC real.
 
 - [x] **Precompilar el código (ReadyToRun):** menos CPU al arrancar con Windows y en el primer guardado de cada sesión.
-  El programa publicado ocupa algo más (la compilación en GitHub muestra cuánto).
+  El programa publicado pasa de 181 a 185 MB (+4 MB, un 2 %; el instalador va comprimido, así que crece menos).
 - [x] **Memoria de .NET más ligera en el motor:** la limpieza de memoria del motor ya no usa un hilo propio en segundo
   plano. La ventana de ajustes y el editor no cambian, para que sigan igual de fluidos.
 - [x] **Smart Save:** los modelos de voz ya no reservan memoria de sobra.

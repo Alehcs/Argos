@@ -58,12 +58,8 @@ jobs:
         shell: pwsh
         run: |
           dotnet publish src/Argos -c Release --self-contained true -o publish --nologo
-          dotnet publish src/Argos -c Release --self-contained true -o publish-jit -p:PublishReadyToRun=false --nologo
-          foreach ($dir in 'publish', 'publish-jit') {
-              $mb = (Get-ChildItem $dir -Recurse -File | Measure-Object Length -Sum).Sum / 1MB
-              $dll = (Get-Item "$dir/Argos.dll").Length / 1MB
-              "{0}: {1:N1} MB in all, Argos.dll {2:N1} MB" -f $dir, $mb, $dll | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          }
+          $mb = (Get-ChildItem publish -Recurse -File | Measure-Object Length -Sum).Sum / 1MB
+          "Published program: {0:N1} MB" -f $mb | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
 
       - name: Keep the test output
         if: always()
