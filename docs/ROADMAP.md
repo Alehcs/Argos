@@ -57,28 +57,35 @@ el motor arrancando, respondiendo y cerrándose). Falta medir el ahorro en un PC
     apagarla las dejaría en negro.
   - Cómo hacerla bien: que la captura se encienda sola al pedir una captura o una grabación, y probarlo en un PC real.
 
-## Fase 2: modos Normal y Rendimiento (aprobada)
+## Fase 2: modos Normal y Rendimiento (hecha)
 
-- [ ] **Dos modos con valores por defecto adecuados:**
-  - Normal: como hoy (calidad alta).
-  - Rendimiento: menos carga en la GPU (ajustes más rápidos del codificador, sin doble pase ni cuantización adaptativa)
-    y búfer corto por defecto.
-- [ ] **En ambos modos se puede cambiar todo:** fps (30, 60…), resolución (1440p, 1080p…), calidad, duración, etc.
-- [ ] **Aviso:** si Argos pierde fotogramas, sugiere el modo Rendimiento. Se mide lo que pierde Argos; medir los FPS del
-  propio juego costaría recursos.
-- [ ] **PCs sin codificador de vídeo en la gráfica:** hoy codifica con la CPU a 1440p60. Bajar solo a 1080p30 con un
-  ajuste rápido y avisar.
-- [ ] Equivalentes para NVIDIA, AMD e Intel.
+En GitHub compila, pasan los 503 tests y las capturas de las páginas se ven bien. Falta medir en un PC real.
+
+- [x] **Dos modos, arriba de la página de Calidad:**
+  - Normal: como siempre (Ultra, 1440p a 60 fps, 5 minutos). Memoria máxima del búfer: unos 2 GB.
+  - Rendimiento: Equilibrada, 1080p a 60 fps, 1 minuto y un codificador más ligero. Memoria máxima: unos 117 MB.
+- [x] **En ambos modos se puede cambiar todo** después: fps, resolución, calidad, velocidad del codificador y duración.
+- [x] **Codificador ligero por fabricante,** con la misma calidad objetivo:
+  - NVIDIA: sin doble pase ni cuantización adaptativa.
+  - AMD: perfil "equilibrado".
+  - Intel: su perfil más rápido.
+  - CPU (x264): "superfast".
+- [x] **Aviso de fotogramas perdidos:**
+  - El motor vigila en silencio: más del 2 % en un minuto, sin contar el arranque ni las pausas.
+  - Nada aparece mientras juegas. Solo se ve dentro de Argos, en la página de Estado.
+  - El botón "Usar Rendimiento" no aplica nada hasta pulsar Guardar.
+- [x] **PCs sin codificador de vídeo en la gráfica:** el original ya grababa a 1080p30 y lo avisaba. Corrección: en la
+  revisión dije, por error, que grababa a 1440p60. En Rendimiento, además, usa el ajuste más rápido.
 
 ## Duración del clip (pedido)
 
-- **Hoy:** el búfer va de 15 s a 20 min en pasos fijos (15 s, 30 s, 1, 1,5, 2, 3, 4, 5, 7, 10, 15 y 20 min). Hay además
+- **Hoy:** el búfer va de 15 s a 20 min con un deslizador (15 s, 30 s, 1, 1,5, 2, 3, 4, 5, 7, 10, 15 y 20 min). Hay además
   un "clip rápido" opcional con otra tecla (10, 15, 20, 30, 45 o 60 s).
-- [ ] **Opciones rápidas:** 30 s, 1, 5, 10, 15, 30 y 60 min, más **Personalizado**.
-- [ ] **Valores por defecto:** Normal 5 min. Rendimiento 1 min (recomendado) o 30 s. *Por decidir.*
-- [ ] Mantener el clip rápido con duración elegible.
-- **Ojo:** los búferes de 30 y 60 min necesitan el búfer en disco (fase 3). En memoria, 1 hora a la calidad por defecto
-  podría ocupar unos 25 GB de RAM.
+- [x] **Valores por defecto:** Normal 5 min, Rendimiento 1 min.
+- [x] **Elegir la duración:** el deslizador ya cubre 30 s, 1, 5, 10 y 15 min; se mantiene.
+- [x] El clip rápido sigue con su duración elegible.
+- [ ] **30 y 60 min:** llegan con el búfer en disco (fase 3). En memoria, 1 hora a la calidad por defecto podría ocupar
+  unos 25 GB de RAM. Si hace falta un valor exacto ("Personalizado"), se decide junto con la fase 3.
 
 ## Fase 3: búfer en disco (opcional; necesario para búferes largos)
 
@@ -144,4 +151,5 @@ el motor arrancando, respondiendo y cerrándose). Falta medir el ahorro en un PC
 - **21 oct 2026:** copia independiente de BasilForge/Kairos, auditoría de seguridad y renombrado a Argos de todo lo
   visible (commit `79e35a5`). Después, renombrado completo de código, carpetas y archivos (rama
   `rename/argos-complete`, fusionada en master) y esta hoja de ruta. Compilación y tests automáticos en GitHub: en
-  verde (493 tests pasan, 56 se saltan).
+  verde (493 tests pasan, 56 se saltan). Fase 1 y dos arreglos de seguridad fusionados en master. Fase 2 (modos Normal y
+  Rendimiento, aviso de fotogramas perdidos) en la rama `feature/phase-2`, con capturas de las páginas en GitHub.
