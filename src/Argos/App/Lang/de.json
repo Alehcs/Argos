@@ -124,7 +124,7 @@
   "quality.estimate": "Max. Speicherbedarf: {0}",
   "quality.cpuOnly": "Kein GPU-Encoder, daher ist die Aufnahme auf 1080p mit 30 fps begrenzt",
   "quality.mode": "Modus",
-  "quality.modeTip": "Jeder Modus stellt alles darunter für dich ein, und du kannst trotzdem alles ändern.",
+  "quality.modeTip": "Stellt alles darunter für dich ein; ändern geht trotzdem.",
   "quality.normal": "Normal",
   "quality.normalTip": "Die beste Qualität: 1440p mit 60 fps, die letzten 5 Minuten",
   "quality.performance": "Leistung",

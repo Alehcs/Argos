@@ -124,7 +124,7 @@
   "quality.estimate": "Memoria máxima: {0}",
   "quality.cpuOnly": "Sin codificador de GPU, la grabación se limita a 1080p a 30 fps",
   "quality.mode": "Modo",
-  "quality.modeTip": "Cada modo ajusta por ti todo lo de abajo, y aun así puedes cambiar lo que quieras.",
+  "quality.modeTip": "Ajusta todo lo de abajo por ti; puedes cambiarlo igual.",
   "quality.normal": "Normal",
   "quality.normalTip": "La mejor calidad: 1440p a 60 fps, los últimos 5 minutos",
   "quality.performance": "Rendimiento",
