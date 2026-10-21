@@ -17,7 +17,8 @@ public sealed record StatusDto(
     string Version,
     Engine.Voice.VoiceStatus? Voice = null,
     string? LastShot = null,
-    Engine.Updates.UpdateStatus? Update = null);
+    Engine.Updates.UpdateStatus? Update = null,
+    bool LosingFrames = false);
 
 public sealed record CapsDto(
     List<MonitorInfo> Monitors,

@@ -8,6 +8,9 @@ public enum VideoCodec { Av1, Hevc, H264 }
 
 public enum QualityPreset { Ultra, High, Balanced, Light, Custom }
 
+/// <summary>Normal: the best quality. Performance: lighter while a game runs (see <see cref="RecordingProfiles"/>).</summary>
+public enum RecordingProfile { Normal, Performance }
+
 public enum OutputResolution { Native, P2160, P1440, P1080, P720 }
 
 public enum VoiceSensitivity { Strict, Normal, Easy }
@@ -60,6 +63,7 @@ public sealed class AppSettings
         Video.CustomCq = Math.Clamp(Video.CustomCq, 1, 63);
         Video.CustomMbps = Math.Clamp(Video.CustomMbps, 2, 300);
         if (string.IsNullOrWhiteSpace(Video.Preset)) Video.Preset = "p5";
+        if (!Enum.IsDefined(Video.Profile)) Video.Profile = RecordingProfile.Normal;
 
         Replay.Seconds = Math.Clamp(Replay.Seconds, 15, 1200);
         Replay.QuickSeconds = Math.Clamp(Replay.QuickSeconds, 5, 120);
@@ -110,6 +114,25 @@ public sealed class VideoSettings
     public int CustomCq { get; set; } = 22;
     public int CustomMbps { get; set; } = 40;
     public string Preset { get; set; } = "p5";
+    /// <summary>The mode last picked. Performance also makes the encoder itself lighter (EncoderPlan.Light).</summary>
+    public RecordingProfile Profile { get; set; } = RecordingProfile.Normal;
+}
+
+/// <summary>What picking a mode sets. Every one of these can still be changed afterwards, in either mode.</summary>
+public static class RecordingProfiles
+{
+    /// <summary>Normal is the app's own defaults; Performance: Balanced quality, 1080p at 60 fps, a one-minute buffer.</summary>
+    public static void Apply(AppSettings s, RecordingProfile profile)
+    {
+        bool light = profile == RecordingProfile.Performance;
+        var normal = new AppSettings();
+        s.Video.Profile = profile;
+        s.Video.Quality = light ? QualityPreset.Balanced : normal.Video.Quality;
+        s.Video.Resolution = light ? OutputResolution.P1080 : normal.Video.Resolution;
+        s.Video.Fps = normal.Video.Fps;
+        s.Video.Preset = light ? "p4" : normal.Video.Preset;
+        s.Replay.Seconds = light ? 60 : normal.Replay.Seconds;
+    }
 }
 
 public sealed class ReplaySettings

@@ -3,6 +3,7 @@ using Argos.Settings;
 namespace Argos.Engine;
 
 /// <param name="Cq">NVENC target quality (CQVBR), or CRF for x264.</param>
+/// <param name="Light">Performance mode: the encoder does less work of its own (see EncoderCatalog.Settings).</param>
 public sealed record EncoderPlan(
     string EncoderId,
     string RateControl,
@@ -10,7 +11,8 @@ public sealed record EncoderPlan(
     int MaxBitrateKbps,
     int KeyintSec,
     string Preset,
-    int BFrames);
+    int BFrames,
+    bool Light = false);
 
 public static class EncoderPresets
 {
@@ -28,7 +30,7 @@ public static class EncoderPresets
     };
 
     public static EncoderPlan Plan(VideoCodec codec, QualityPreset q, int width, int height, int fps,
-        int customCq, int customMbps, bool nvencAvailable, string nvencPreset = "p5")
+        int customCq, int customMbps, bool nvencAvailable, string nvencPreset = "p5", bool light = false)
     {
         int av1Cq;
         int kbps;
@@ -53,7 +55,7 @@ public static class EncoderPresets
 
         if (!nvencAvailable)
             return new EncoderPlan("obs_x264", "CRF", Math.Clamp((int)Math.Round(av1Cq * 51.0 / 63.0), 1, 51),
-                kbps, 1, "veryfast", 2);
+                kbps, 1, light ? "superfast" : "veryfast", 2, light);
 
         string id = codec switch
         {
@@ -61,7 +63,7 @@ public static class EncoderPresets
             VideoCodec.H264 => "obs_nvenc_h264_tex",
             _ => "obs_nvenc_av1_tex",
         };
-        return new EncoderPlan(id, "CQVBR", cq, kbps, 1, nvencPreset, 2);
+        return new EncoderPlan(id, "CQVBR", cq, kbps, 1, nvencPreset, 2, light);
     }
 
     /// <summary>Worst-case encoded size in MiB of <paramref name="seconds"/> at the max bitrate.</summary>

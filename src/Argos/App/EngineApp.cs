@@ -28,6 +28,8 @@ public sealed class EngineApp : ApplicationContext
     readonly PipeServer _pipe;
     AppSettings _settings;
     CapturePipeline? _pipeline;
+    /// <summary>Whether this pipeline loses frames (looked at on the tray's tick); a new pipeline starts clean.</summary>
+    FrameHealth _frames = new();
     GameWatcher? _watcher;
     string? _pendingApp;
     /// <summary>The folder name of what the running recording records.</summary>
@@ -103,6 +105,9 @@ public sealed class EngineApp : ApplicationContext
             TryApplyUpdate();
             if (_stopped)
                 return;
+            if (_pipeline?.GetStatus() is { } frames)
+                _frames.Sample(DateTime.UtcNow, frames.BufferActive || frames.Recording, frames.TotalFrames,
+                    (long)frames.LaggedFrames + frames.SkippedFrames);
             RefreshTray();
         };
         _updates.NewVersion += version => _ui.BeginInvoke(() =>
@@ -244,6 +249,7 @@ public sealed class EngineApp : ApplicationContext
             p.RecordingStopped += (path, seconds) => _ui.BeginInvoke(() => OnRecordingStopped(path, seconds));
             p.Build();
             _pipeline = p;
+            _frames = new FrameHealth();
             _lastClip ??= NewestClip(p.ClipsFolder);
             _lastShot ??= ClipLibrary.NewestPicture(p.ClipsFolder);
             _retried = false;
@@ -777,7 +783,8 @@ public sealed class EngineApp : ApplicationContext
         AppInfo.Version,
         _voice.Status(),
         _lastShot,
-        _updates.Status);
+        _updates.Status,
+        _frames.Losing);
 
     static CapsDto Caps()
     {

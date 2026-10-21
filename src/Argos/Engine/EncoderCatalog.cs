@@ -50,7 +50,11 @@ public static class EncoderCatalog
         return ((w, h), Math.Min(fps, 30));
     }
 
-    /// <summary>libobs encoder settings for <paramref name="choice"/>, from the quality numbers in <paramref name="plan"/>.</summary>
+    /// <summary>
+    /// libobs encoder settings for <paramref name="choice"/>, from the quality numbers in <paramref name="plan"/>. A light
+    /// plan (Performance mode) spares the graphics card: NVENC without its second pass or adaptive quantization (both
+    /// cost GPU time), AMD and Intel on their faster settings, x264 on a faster preset.
+    /// </summary>
     public static Dictionary<string, object> Settings(EncoderPlan plan, EncoderChoice choice)
     {
         // plan.Cq is on the 1-63 scale for AV1 and the 1-51 scale for HEVC/H.264 (see EncoderPresets).
@@ -68,17 +72,17 @@ public static class EncoderCatalog
                 s["bitrate"] = (long)plan.MaxBitrateKbps;
                 s["preset"] = plan.Preset;
                 s["tune"] = "hq";
-                s["multipass"] = "qres";
+                s["multipass"] = plan.Light ? "disabled" : "qres";
                 s["profile"] = profile;
                 s["bf"] = (long)plan.BFrames;
                 s["lookahead"] = false;
-                s["adaptive_quantization"] = true;
+                s["adaptive_quantization"] = !plan.Light;
                 break;
             case EncoderVendor.Amd:
                 s["rate_control"] = "QVBR";
                 s["cqp"] = choice.Codec == VideoCodec.Av1 ? cq : cq51;
                 s["bitrate"] = (long)plan.MaxBitrateKbps;
-                s["preset"] = "quality";
+                s["preset"] = plan.Light ? "balanced" : "quality";
                 s["profile"] = profile;
                 s["bf"] = choice.Codec == VideoCodec.Hevc ? 0L : 2L;
                 break;
@@ -86,13 +90,13 @@ public static class EncoderCatalog
                 s["rate_control"] = "ICQ";
                 s["icq_quality"] = cq51;
                 s["max_bitrate"] = (long)plan.MaxBitrateKbps;
-                s["target_usage"] = "TU4";
+                s["target_usage"] = plan.Light ? "TU7" : "TU4";
                 s["profile"] = profile;
                 break;
             default:
                 s["rate_control"] = "CRF";
                 s["crf"] = Math.Max(cq51, 20);
-                s["preset"] = "veryfast";
+                s["preset"] = plan.Light ? "superfast" : "veryfast";
                 s["profile"] = "high";
                 break;
         }

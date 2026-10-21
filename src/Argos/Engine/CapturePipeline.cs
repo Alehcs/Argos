@@ -238,7 +238,8 @@ public sealed class CapturePipeline : IDisposable
     {
         var choice = Choice!;
         Plan = EncoderPresets.Plan(choice.Codec, _s.Video.Quality, Output.W, Output.H, Fps,
-            _s.Video.CustomCq, _s.Video.CustomMbps, choice.Vendor != EncoderVendor.Software, _s.Video.Preset);
+            _s.Video.CustomCq, _s.Video.CustomMbps, choice.Vendor != EncoderVendor.Software, _s.Video.Preset,
+            light: _s.Video.Profile == RecordingProfile.Performance);
 
         using (var d = new ObsData())
         {

@@ -48,6 +48,15 @@
                 <TextBlock Style="{StaticResource NoticeText}" Text="{Binding FolderWarning}"/>
             </DockPanel>
         </Border>
+        <Border Style="{StaticResource Notice}" Visibility="{Binding LosingFramesText, Converter={StaticResource Vis}}">
+            <DockPanel>
+                <TextBlock Style="{StaticResource NoticeIcon}" DockPanel.Dock="Left"/>
+                <Button Style="{StaticResource Ghost}" DockPanel.Dock="Right" Margin="10,0,0,0" VerticalAlignment="Center"
+                        Command="{Binding UsePerformanceCommand}" Content="{l:T status.usePerformance}"
+                        Visibility="{Binding SuggestPerformance, Converter={StaticResource Vis}}"/>
+                <TextBlock Style="{StaticResource NoticeText}" Text="{Binding LosingFramesText}"/>
+            </DockPanel>
+        </Border>
 
         <!-- State -->
         <Border Style="{StaticResource Card}" Padding="22,20">

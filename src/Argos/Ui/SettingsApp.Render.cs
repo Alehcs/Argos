@@ -230,6 +230,17 @@ public static partial class SettingsApp
             if (voiceState == "ready")
                 vm.SeedReplay(false);
         }
+        // status losing-frames: the notice that suggests the Performance mode (made-up figures: 900 of 30000 frames late).
+        if (voiceState == "losing-frames")
+        {
+            var engine = new Engine.EngineStatus(true, false, 60, 900, 0, 30_000, 300, 300, "obs_nvenc_av1_tex", 2560, 1440, 729, 600,
+                @"D:\Clips", false, null);
+            status = new StatusDto(engine, [], @"D:\Clips\Desktop\Desktop 2026-10-14 20-37-26.mp4", null, false, false, AppInfo.Version,
+                LosingFrames: true);
+        }
+        // quality performance: the Quality page in the Performance mode.
+        if (voiceState == "performance")
+            vm.SeedProfile(RecordingProfile.Performance);
         // clips-pictures | viewer: the Clips page over made-up screenshots in a temp folder, and one of them in the viewer.
         // status-latest: the Status page with the made-up clip and screenshot as the latest ones.
         string? samples = page is "clips-pictures" or "clips-chosen" or "clips-confirm" or "viewer" or "status-latest" or "video-viewer"

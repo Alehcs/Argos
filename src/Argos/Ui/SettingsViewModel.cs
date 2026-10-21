@@ -26,7 +26,8 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
         nameof(SaveVisible), nameof(ReplayPauseVisible), nameof(ReplayPauseTip), nameof(RecordState), nameof(RecordTitle), nameof(RecordDetail),
         nameof(IsRecording), nameof(IsRecordingLive), nameof(StartPrimaryVisible), nameof(StartGhostVisible), nameof(RecordPauseLabel),
         nameof(VoiceView), nameof(ShotView), nameof(VoiceStep), nameof(VoiceDone1), nameof(VoiceDone2), nameof(VoiceDone3), nameof(VoiceMessage),
-        nameof(VoiceResult), nameof(VoiceLastMatch), nameof(VoiceStrength), nameof(VoiceNote),
+        nameof(VoiceResult), nameof(VoiceLastMatch), nameof(VoiceStrength), nameof(VoiceNote), nameof(LosingFramesText),
+        nameof(SuggestPerformance),
     ];
 
     AppSettings _s = new();
@@ -68,6 +69,7 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
         VoiceDeleteShotCommand = new RelayCommand(_ => VoiceCommand("voice-delete-shot"));
         ScreenshotCommand = new RelayCommand(_ => SendAsync("screenshot"));
         ResetHotkeysCommand = new RelayCommand(_ => ResetHotkeys());
+        UsePerformanceCommand = new RelayCommand(_ => Profile = RecordingProfile.Performance);
         foreach (var state in KeyStates)
             state.FixCommand = new RelayCommand(_ => UseFreeKeys([state]), _ => state.CanFix);
         FixAllCommand = new RelayCommand(_ => UseFreeKeys(KeyStates.Where(k => k.CanFix)), _ => ShowsFixAll);
@@ -134,6 +136,14 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
     public void SeedReplay(bool enabled)
     {
         _s.Replay.Enabled = enabled;
+        _savedJson = SettingsStore.Serialize(_s);
+        RaiseAll();
+    }
+
+    /// <summary>Shows a mode as if it were saved, with what it sets (used by --render).</summary>
+    public void SeedProfile(RecordingProfile profile)
+    {
+        RecordingProfiles.Apply(_s, profile);
         _savedJson = SettingsStore.Serialize(_s);
         RaiseAll();
     }
@@ -471,6 +481,8 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
 
     public int Fps { get => _s.Video.Fps; set => Set(() => _s.Video.Fps = value); }
     public QualityPreset Quality { get => _s.Video.Quality; set => Set(() => _s.Video.Quality = value); }
+    /// <summary>The mode: picking one sets its quality, size, frame rate, encoder speed and buffer length, all still changeable.</summary>
+    public RecordingProfile Profile { get => _s.Video.Profile; set => Set(() => RecordingProfiles.Apply(_s, value)); }
     public int CustomCq { get => _s.Video.CustomCq; set => Set(() => _s.Video.CustomCq = value); }
     public int CustomMbps { get => _s.Video.CustomMbps; set => Set(() => _s.Video.CustomMbps = value); }
     public int PresetLevel
@@ -856,10 +868,15 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
     public string? LastShotPath => _status?.LastShot;
     public string LastClipName => LastClipPath is { } p ? Path.GetFileNameWithoutExtension(p) : Text.Get("status.noClip");
     public string FolderWarning => _status?.Engine is { FolderFellBack: true } e ? Text.Format("status.folderFallback", e.ClipsFolder) : "";
+    /// <summary>Shown while the engine loses frames: what to try.</summary>
+    public string LosingFramesText => _status?.LosingFrames == true ? Text.Get("status.losingFrames") : "";
+    /// <summary>The notice's button: the lighter mode, while it is not picked yet.</summary>
+    public bool SuggestPerformance => _status?.LosingFrames == true && Profile == RecordingProfile.Normal;
 
     // ------------------------------------------------------------------ commands
 
     public ICommand SaveNowCommand { get; }
+    public ICommand UsePerformanceCommand { get; }
     public ICommand PauseCommand { get; }
     public ICommand RecordCommand { get; }
     public ICommand PauseRecordCommand { get; }

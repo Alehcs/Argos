@@ -17,6 +17,26 @@
             <TextBlock Text="{l:T quality.cpuOnly}" TextWrapping="Wrap"/>
         </Border>
 
+        <!-- Mode: sets the rest of the page and the buffer length, all still changeable -->
+        <TextBlock Style="{StaticResource Section}" Text="{l:T quality.mode}" Margin="2,6,0,2"/>
+        <TextBlock Style="{StaticResource Caption}" Text="{l:T quality.modeTip}" TextWrapping="Wrap" Margin="2,0,0,10"/>
+        <UniformGrid Columns="2" Margin="0,0,-12,12">
+            <RadioButton Style="{StaticResource ChoiceCard}" GroupName="mode" AutomationProperties.Name="{l:T quality.normal}"
+                         IsChecked="{Binding Profile, Converter={StaticResource Eq}, ConverterParameter=Normal}">
+                <StackPanel>
+                    <TextBlock Text="{l:T quality.normal}" FontSize="17" FontWeight="Bold"/>
+                    <TextBlock Style="{StaticResource Caption}" Text="{l:T quality.normalTip}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                </StackPanel>
+            </RadioButton>
+            <RadioButton Style="{StaticResource ChoiceCard}" GroupName="mode" AutomationProperties.Name="{l:T quality.performance}"
+                         IsChecked="{Binding Profile, Converter={StaticResource Eq}, ConverterParameter=Performance}">
+                <StackPanel>
+                    <TextBlock Text="{l:T quality.performance}" FontSize="17" FontWeight="Bold"/>
+                    <TextBlock Style="{StaticResource Caption}" Text="{l:T quality.performanceTip}" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                </StackPanel>
+            </RadioButton>
+        </UniformGrid>
+
         <Border Style="{StaticResource Card}">
             <StackPanel>
                 <TextBlock Style="{StaticResource Section}" Text="{l:T quality.preset}"/>

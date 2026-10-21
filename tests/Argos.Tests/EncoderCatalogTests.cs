@@ -87,4 +87,28 @@ public static class EncoderCatalogTests
         Assert.Equal("CRF", (string)s["rate_control"], "rc");
         Assert.Equal("veryfast", (string)s["preset"], "preset");
     }
+
+    /// <summary>The Performance mode spares the graphics card on every vendor and keeps the same quality target.</summary>
+    [Test]
+    public static void A_light_plan_spares_the_graphics_card_on_every_vendor()
+    {
+        var normal = EncoderPresets.Plan(VideoCodec.Av1, QualityPreset.Balanced, 1920, 1080, 60, 22, 40, nvencAvailable: true);
+        var light = EncoderPresets.Plan(VideoCodec.Av1, QualityPreset.Balanced, 1920, 1080, 60, 22, 40, nvencAvailable: true, light: true);
+        Assert.True(!normal.Light && light.Light, "the plan says which");
+        Assert.Equal((normal.Cq, normal.MaxBitrateKbps), (light.Cq, light.MaxBitrateKbps), "the same quality target and ceiling");
+
+        var nvidia = new EncoderChoice("obs_nvenc_av1_tex", EncoderVendor.Nvidia, VideoCodec.Av1);
+        var n = EncoderCatalog.Settings(normal, nvidia);
+        var l = EncoderCatalog.Settings(light, nvidia);
+        Assert.Equal(("qres", true), ((string)n["multipass"], (bool)n["adaptive_quantization"]), "NVIDIA, Normal");
+        Assert.Equal(("disabled", false), ((string)l["multipass"], (bool)l["adaptive_quantization"]), "NVIDIA, Performance");
+
+        var amd = new EncoderChoice("av1_texture_amf", EncoderVendor.Amd, VideoCodec.Av1);
+        Assert.Equal(("quality", "balanced"), ((string)EncoderCatalog.Settings(normal, amd)["preset"], (string)EncoderCatalog.Settings(light, amd)["preset"]), "AMD");
+        var intel = new EncoderChoice("obs_qsv11_av1", EncoderVendor.Intel, VideoCodec.Av1);
+        Assert.Equal(("TU4", "TU7"), ((string)EncoderCatalog.Settings(normal, intel)["target_usage"], (string)EncoderCatalog.Settings(light, intel)["target_usage"]), "Intel");
+
+        var cpuLight = EncoderPresets.Plan(VideoCodec.H264, QualityPreset.Balanced, 1920, 1080, 30, 22, 40, nvencAvailable: false, light: true);
+        Assert.Equal("superfast", (string)EncoderCatalog.Settings(cpuLight, new EncoderChoice("obs_x264", EncoderVendor.Software, VideoCodec.H264))["preset"], "x264");
+    }
 }
