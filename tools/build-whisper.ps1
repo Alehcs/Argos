@@ -1,11 +1,11 @@
 <#
   Builds the auto captions runtime (whisper.cpp 1.9.5 with the Vulkan backend) into third_party\whisper\bin, where the
   release script zips it as the captions engine people download on first use. Needs: git, the Vulkan SDK (VULKAN_SDK set by its installer) and the
-  Visual Studio 2022 Build Tools (C++ and CMake). Only the five DLLs Kairos loads are kept.
+  Visual Studio 2022 Build Tools (C++ and CMake). Only the five DLLs Argos loads are kept.
   If whisper.cpp is ever updated, measure WhisperNative's struct sizes and offsets again (see that file).
 #>
 param(
-    [string]$Work = (Join-Path $env:TEMP 'kairos-whisper-build'),
+    [string]$Work = (Join-Path $env:TEMP 'argos-whisper-build'),
     [string]$Tag = 'v1.9.5'
 )
 

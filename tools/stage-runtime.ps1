@@ -1,6 +1,6 @@
 <#
-  Copies the parts of libobs that Kairos needs from an installed OBS Studio into Kairos's program folder (one
-  folder: DLLs and helpers beside Kairos.exe, obs-plugins\64bit, data). OBS itself is only read, never modified.
+  Copies the parts of libobs that Argos needs from an installed OBS Studio into Argos's program folder (one
+  folder: DLLs and helpers beside Argos.exe, obs-plugins\64bit, data). OBS itself is only read, never modified.
 #>
 param(
     [string]$Dest = 'D:\Argos',
@@ -10,7 +10,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $plugins = 'win-capture', 'win-wasapi', 'obs-nvenc', 'obs-ffmpeg', 'obs-qsv11', 'obs-x264'
-# Not loaded by anything Kairos ships: the OBS window (Qt), scripting, OpenGL, and WebRTC (datachannel, obs-webrtc's only).
+# Not loaded by anything Argos ships: the OBS window (Qt), scripting, OpenGL, and WebRTC (datachannel, obs-webrtc's only).
 $skipDlls = '^(Qt6.*|obs-frontend-api|obs-scripting|lua51|libobs-opengl|python.*|datachannel)\.dll$'
 $helperExes = 'obs-ffmpeg-mux.exe', 'obs-nvenc-test.exe', 'obs-amf-test.exe', 'obs-qsv-test.exe'
 

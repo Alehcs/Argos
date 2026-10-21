@@ -1,12 +1,12 @@
 #Requires -Version 7
 <#
   Builds an Argos release into releases\ (git-ignored, and the local update folder for testing):
-  - Argos-Setup.exe, the install wizard people download (Inno Setup 6, installer\Kairos.iss), which carries
+  - Argos-Setup.exe, the install wizard people download (Inno Setup 6, installer\Argos.iss), which carries
     Argos-win-Setup.exe, Velopack's one-click installer, and runs it into the folder chosen in the wizard;
   - the update files (full and delta packages, releases.win.json); the Visual C++ runtime is installed by the
     Setup only when the PC lacks it;
   - Argos-<version>-source.zip, the release's complete source (the GPL), from the commit it is built from;
-  - captions-runtime\kairos-captions-runtime-1.9.5.zip, auto captions' engine, made once from third_party\whisper\bin.
+  - captions-runtime\argos-captions-runtime-1.9.5.zip, auto captions' engine, made once from third_party\whisper\bin.
   Nothing is uploaded: publishing is a separate step, run only when the owner says so.
 #>
 param(
@@ -19,11 +19,11 @@ param(
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot
 # Auto captions' engine as CaptionRuntime pins it (AssetName, Files); this order makes the same zip again.
-$captionsZip = 'kairos-captions-runtime-1.9.5.zip'
+$captionsZip = 'argos-captions-runtime-1.9.5.zip'
 $whisperDlls = 'whisper.dll', 'ggml.dll', 'ggml-base.dll', 'ggml-cpu.dll', 'ggml-vulkan.dll'
 # The source zip is made from the last commit: refuse a build that differs from it.
 if (git -C $repo status --porcelain --untracked-files=no) { throw 'Commit your changes first: the source zip must match the build' }
-[xml]$proj = Get-Content (Join-Path $repo 'src\Kairos\Kairos.csproj')
+[xml]$proj = Get-Content (Join-Path $repo 'src\Argos\Argos.csproj')
 if (-not $Version) { $Version = $proj.Project.PropertyGroup.Version | Where-Object { $_ } | Select-Object -First 1 }
 $notes = Join-Path $repo "docs\release-notes\$Version.md"
 if (-not (Test-Path $notes)) { throw "Write the release notes first: docs\release-notes\$Version.md" }
@@ -37,7 +37,7 @@ if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
 & (Join-Path $PSScriptRoot 'stage-runtime.ps1') -Dest $stage | Write-Output
 $obsVersion = (Get-Content (Join-Path $stage 'libobs-version.txt')).Trim()
 if ($obsVersion -ne $ExpectedObs) { throw "Installed OBS is $obsVersion, expected $ExpectedObs (pass -ExpectedObs after re-testing)" }
-dotnet publish (Join-Path $repo 'src\Kairos') -c Release -o $stage --self-contained true "-p:Version=$Version" --nologo -v quiet
+dotnet publish (Join-Path $repo 'src\Argos') -c Release -o $stage --self-contained true "-p:Version=$Version" --nologo -v quiet
 if ($LASTEXITCODE -ne 0) { throw 'dotnet publish failed' }
 # Debug symbols and import libraries are only for developers.
 Get-ChildItem $stage -File | Where-Object { $_.Extension -in '.pdb', '.lib', '.xml' } | Remove-Item
@@ -47,7 +47,7 @@ Copy-Item (Join-Path $repo 'licenses') $stage -Recurse
 # The installer and the update files.
 New-Item -ItemType Directory -Force $out | Out-Null
 & $vpk pack --packId $PackId --packVersion $Version --packDir $stage --mainExe Argos.exe --packTitle $PackId --packAuthors Argos `
-    --icon (Join-Path $repo 'src\Kairos\app.ico') --shortcuts StartMenuRoot --framework vcredist145-x64 --releaseNotes $notes --outputDir $out
+    --icon (Join-Path $repo 'src\Argos\app.ico') --shortcuts StartMenuRoot --framework vcredist145-x64 --releaseNotes $notes --outputDir $out
 if ($LASTEXITCODE -ne 0) { throw 'vpk pack failed' }
 # The release page carries the Setup only: no portable zip.
 Get-ChildItem $out -Filter "$PackId-win-Portable.zip" | Remove-Item
@@ -56,7 +56,7 @@ Get-ChildItem $out -Filter "$PackId-win-Portable.zip" | Remove-Item
 $iscc = "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe", "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe", "$env:ProgramFiles\Inno Setup 6\ISCC.exe" |
     Where-Object { Test-Path $_ } | Select-Object -First 1
 if (-not $iscc) { throw 'Inno Setup 6 not found: winget install JRSoftware.InnoSetup --scope user' }
-& $iscc /Qp "/DAppVersion=$Version" "/DPackId=$PackId" "/DOutDir=$out" (Join-Path $repo 'installer\Kairos.iss')
+& $iscc /Qp "/DAppVersion=$Version" "/DPackId=$PackId" "/DOutDir=$out" (Join-Path $repo 'installer\Argos.iss')
 if ($LASTEXITCODE -ne 0) { throw 'the install wizard did not build' }
 
 if ($PackId -eq 'Argos') {

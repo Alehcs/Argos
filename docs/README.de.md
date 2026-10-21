@@ -95,7 +95,7 @@ Argos ist eine .NET-10-App (WPF und WinForms), die **libobs**, die Engine von [O
 ```powershell
 .\tools\build-whisper.ps1               # once: the auto captions engine (needs the Vulkan SDK and VS Build Tools)
 .\tools\release.ps1                     # the Setup, update files and source zip in releases\ (needs vpk 1.2.161)
-dotnet run --project tests\Kairos.Tests # the tests
+dotnet run --project tests\Argos.Tests # the tests
 ```
 
 Der Build kopiert libobs 32.2.2 aus einem installierten OBS Studio.
