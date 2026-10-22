@@ -30,8 +30,16 @@ public static class ShellThumbnail
     /// <summary>Queues a thumbnail; <paramref name="done"/> runs on the worker thread with a frozen image or null.</summary>
     public static void Request(string path, Action<BitmapSource?> done) => Queue.Add((path, done));
 
+    /// <summary>
+    /// Makes the thumbnails instead of the shell, for page renders on a Windows server, whose shell gives file icons
+    /// (SettingsApp.Render); null in the app.
+    /// </summary>
+    internal static Func<string, BitmapSource?>? StandIn { get; set; }
+
     static BitmapSource? Load(string path, int width, int height)
     {
+        if (StandIn is { } standIn)
+            return standIn(path);
         SHCreateItemFromParsingName(path, IntPtr.Zero, typeof(IShellItemImageFactory).GUID, out IShellItemImageFactory factory);
         try
         {

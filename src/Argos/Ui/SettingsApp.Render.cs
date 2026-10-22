@@ -200,6 +200,12 @@ public static partial class SettingsApp
         var app = CreateApplication();
         if (page == "cursors")
             return RenderCursors(app, outPng);
+        // A Windows server (CI) gives file icons for thumbnails: pictures are read as they are, and a clip's thumbnail is
+        // the .jpg of the same name in ARGOS_RENDER_POSTERS.
+        if (Environment.GetEnvironmentVariable("ARGOS_RENDER_POSTERS") is { } posters && Directory.Exists(posters))
+            ShellThumbnail.StandIn = path => RenderThumbnail(Engine.ClipOrganizer.IsPicture(path)
+                ? path
+                : Path.Combine(posters, Path.GetFileNameWithoutExtension(path) + ".jpg"));
         var vm = new SettingsViewModel();
 
         StatusDto? status = null;
@@ -473,6 +479,21 @@ public static partial class SettingsApp
             {
             }
         return 0;
+    }
+
+    /// <summary>A thumbnail read from a picture file (320 px wide, as the shell's), or null when there is none.</summary>
+    static BitmapSource? RenderThumbnail(string picture)
+    {
+        if (!File.Exists(picture))
+            return null;
+        var image = new BitmapImage();
+        image.BeginInit();
+        image.CacheOption = BitmapCacheOption.OnLoad;
+        image.DecodePixelWidth = 320;
+        image.UriSource = new Uri(picture);
+        image.EndInit();
+        image.Freeze();
+        return image;
     }
 
     /// <summary>A temp clips folder with drawn screenshots (no game in them) and a video, for the Clips page renders.</summary>

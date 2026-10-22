@@ -233,18 +233,20 @@ def clip(scene, overlay, out, seconds=8):
 
 
 def samples():
-    SAMPLES.mkdir(parents=True, exist_ok=True)
+    (SAMPLES / "posters").mkdir(parents=True, exist_ok=True)
     shooter, racer = hud("shooter"), hud("racer")
     wide = W + PAN
     peaks, frost = ember_peaks(wide), frostline(wide)
-    clip(peaks, shooter, SAMPLES / "ember-peaks.mp4")
+    clips = {"ember-peaks": (peaks, shooter), "night-runner": (night_runner(wide), racer), "frostline": (frost, shooter),
+             "greenvale": (greenvale(wide), None)}
+    for name, (scene, overlay) in clips.items():
+        clip(scene, overlay, SAMPLES / f"{name}.mp4")
+        # The clip's thumbnail for the renders (a Windows server's shell makes none): its middle frame.
+        framed(scene, overlay, x=PAN // 2).save(SAMPLES / "posters" / f"{name}.jpg", quality=88)
     framed(peaks, shooter, x=PAN // 2).save(SAMPLES / "ember-peaks.png", optimize=True)
-    clip(night_runner(wide), racer, SAMPLES / "night-runner.mp4")
-    clip(frost, shooter, SAMPLES / "frostline.mp4")
     framed(frost, shooter, x=PAN).save(SAMPLES / "frostline.png", optimize=True)
     framed(dune_riders(W), None).save(SAMPLES / "dune-riders.png", optimize=True)
-    clip(greenvale(wide), None, SAMPLES / "greenvale.mp4")
-    for path in sorted(SAMPLES.iterdir()):
+    for path in sorted(p for p in SAMPLES.rglob("*") if p.is_file()):
         print(f"{path.relative_to(ROOT)}: {path.stat().st_size // 1024} KB")
 
 

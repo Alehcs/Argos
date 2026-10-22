@@ -42,6 +42,9 @@ jobs:
         shell: pwsh
         run: |
           $clips = Join-Path $env:RUNNER_TEMP 'clips'
+          # A server's shell gives file icons, not thumbnails: a clip's thumbnail is its poster of the same name.
+          $posters = Join-Path $env:RUNNER_TEMP 'posters'
+          New-Item -ItemType Directory -Force $posters | Out-Null
           $evening = (Get-Date).Date.AddHours(21)
           # Game, sample, minutes before 21:00 today: today, yesterday and earlier this week, for the Library's headings.
           $items = @(
@@ -55,8 +58,13 @@ jobs:
               $path = Join-Path $folder ('{0} {1:yyyy-MM-dd HH-mm-ss}{2}' -f $i[0], $time, [IO.Path]::GetExtension($i[1]))
               Copy-Item (Join-Path 'docs/media/screens/samples' $i[1]) $path
               (Get-Item $path).LastWriteTime = $time
+              if ($i[1].EndsWith('.mp4')) {
+                  $poster = 'docs/media/screens/samples/posters/{0}.jpg' -f [IO.Path]::GetFileNameWithoutExtension($i[1])
+                  Copy-Item $poster (Join-Path $posters ([IO.Path]::GetFileNameWithoutExtension($path) + '.jpg'))
+              }
           }
           "ARGOS_RENDER_SAMPLES=$clips" >> $env:GITHUB_ENV
+          "ARGOS_RENDER_POSTERS=$posters" >> $env:GITHUB_ENV
           "ARGOS_RENDER_CLIP=$((Get-ChildItem $clips -Recurse -Filter 'Ember Peaks*.mp4').FullName)" >> $env:GITHUB_ENV
           "ARGOS_RENDER_THUMB=$((Resolve-Path 'docs/media/screens/samples/ember-peaks.png').Path)" >> $env:GITHUB_ENV
 
