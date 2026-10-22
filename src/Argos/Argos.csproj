@@ -22,7 +22,7 @@
     <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..'))=/_/</PathMap>
     <AssemblyName>Argos</AssemblyName>
     <RootNamespace>Argos</RootNamespace>
-    <Version>1.0.1</Version>
+    <Version>1.1.0-beta.1</Version>
     <Product>Argos</Product>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <ApplicationIcon>app.ico</ApplicationIcon>

@@ -13,7 +13,9 @@ param(
     [string]$PackId = 'Argos',
     [string]$Version,
     [string]$Out = 'releases',
-    [string]$ExpectedObs = '32.2.2'
+    [string]$ExpectedObs = '32.2.2',
+    # Where OBS Studio is: installed, or unpacked from its release zip (the test build workflow).
+    [string]$Obs = 'C:\Program Files\obs-studio'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -34,7 +36,7 @@ if (-not (Test-Path $vpk)) { throw 'vpk not found: dotnet tool install -g vpk --
 # The program, in one folder: libobs from the installed OBS (read only), then Argos with .NET inside.
 $stage = Join-Path $repo "dist\stage-$PackId-$Version"
 if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
-& (Join-Path $PSScriptRoot 'stage-runtime.ps1') -Dest $stage | Write-Output
+& (Join-Path $PSScriptRoot 'stage-runtime.ps1') -Dest $stage -Obs $Obs | Write-Output
 $obsVersion = (Get-Content (Join-Path $stage 'libobs-version.txt')).Trim()
 if ($obsVersion -ne $ExpectedObs) { throw "Installed OBS is $obsVersion, expected $ExpectedObs (pass -ExpectedObs after re-testing)" }
 # The real release turns the developer switches off (AppInfo.DeveloperSwitches); a test build (another PackId) keeps them.
@@ -70,8 +72,12 @@ if ($PackId -eq 'Argos') {
 }
 
 # Auto captions' engine, downloaded on first use (made once: its size and fingerprint are pinned in CaptionRuntime).
+# It is made from third_party\whisper\bin (tools\build-whisper.ps1); a build without that folder leaves it out.
 $captions = Join-Path $out "captions-runtime\$captionsZip"
-if (-not (Test-Path $captions)) {
+if (-not (Test-Path $captions) -and -not (Test-Path (Join-Path $repo 'third_party\whisper\bin\whisper.dll'))) {
+    Write-Output "No third_party\whisper\bin: the captions engine zip is left out (Argos downloads the published one)."
+}
+elseif (-not (Test-Path $captions)) {
     New-Item -ItemType Directory -Force (Split-Path $captions) | Out-Null
     Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
     $zip = [IO.Compression.ZipFile]::Open($captions, 'Create')

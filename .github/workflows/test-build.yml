@@ -1,0 +1,94 @@
+name: Test build
+
+# The installer a release would offer (tools/release.ps1, the version in Argos.csproj), built on Windows from this
+# commit, then installed silently and started once to check it. Nothing is published: the installer and the update
+# files are kept as the run's downloads.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/test-build.yml', 'tools/release.ps1', 'docs/release-notes/**']
+
+permissions:
+  contents: read
+
+jobs:
+  installer:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # Releases carry libobs and FFmpeg from OBS Studio (tools/stage-runtime.ps1).
+      - name: Get OBS Studio 32.2.2
+        shell: pwsh
+        run: |
+          $ProgressPreference = 'SilentlyContinue'
+          $zip = Join-Path $env:RUNNER_TEMP 'obs.zip'
+          Invoke-WebRequest 'https://github.com/obsproject/obs-studio/releases/download/32.2.2/OBS-Studio-32.2.2-Windows-x64.zip' -OutFile $zip
+          $hash = (Get-FileHash $zip -Algorithm SHA256).Hash
+          if ($hash -ne '4D6E40E3AB155F56B30DE517380566A206D74B63CDF5AD49AA596924768F97E1') { throw "not the OBS release expected: $hash" }
+          $unpacked = Join-Path $env:RUNNER_TEMP 'obs'
+          Expand-Archive $zip $unpacked
+          $obs = (Get-ChildItem $unpacked -Recurse -Filter obs.dll | Where-Object { $_.Directory.Name -eq '64bit' } | Select-Object -First 1).Directory.Parent.Parent.FullName
+          "OBS_DIR=$obs" >> $env:GITHUB_ENV
+
+      - name: Get the packaging tools (Velopack's vpk, Inno Setup 6)
+        shell: pwsh
+        run: |
+          dotnet tool install -g vpk --version 1.2.161
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) { choco install innosetup -y --no-progress }
+          [xml]$proj = Get-Content src/Argos/Argos.csproj
+          "VERSION=$($proj.Project.PropertyGroup.Version | Where-Object { $_ } | Select-Object -First 1)" >> $env:GITHUB_ENV
+
+      - name: Build the installer as a release does
+        shell: pwsh
+        run: ./tools/release.ps1 -Obs $env:OBS_DIR
+
+      - name: Install it silently and start Argos once
+        timeout-minutes: 8
+        shell: pwsh
+        run: |
+          $setup = Start-Process releases/Argos-Setup.exe -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES' -Wait -PassThru
+          if ($setup.ExitCode -ne 0) { throw "the installer failed ($($setup.ExitCode))" }
+          $app = Join-Path $env:LOCALAPPDATA 'Argos'
+          $exe = Join-Path $app 'current\Argos.exe'
+          foreach ($file in 'Argos.exe', 'obs.dll', 'avcodec-62.dll', 'LICENSE') {
+              if (-not (Test-Path (Join-Path $app "current\$file"))) { throw "$file is not in the install" }
+          }
+          '{0:N0} MB installed in {1}' -f ((Get-ChildItem $app -Recurse -File | Measure-Object Length -Sum).Sum / 1MB), $app
+          function Invoke-Argos([string[]] $arguments) {
+              $p = Start-Process $exe -ArgumentList $arguments -NoNewWindow -Wait -PassThru -RedirectStandardOutput argos-out.txt
+              [pscustomobject]@{ Code = $p.ExitCode; Text = (Get-Content argos-out.txt -Raw) }
+          }
+          # Velopack starts Argos after installing it; start its background part if it is not running yet.
+          if (-not (Get-Process Argos -ErrorAction SilentlyContinue)) { Start-Process $exe -ArgumentList '--background' }
+          $status = $null
+          for ($i = 0; $i -lt 60 -and -not $status; $i++) {
+              Start-Sleep -Seconds 1
+              $reply = (Invoke-Argos @('--send', 'status')).Text
+              if ($reply -match '"version"') { $status = $reply }
+          }
+          if (-not $status) { Get-Content "$env:APPDATA/Argos/logs/argos-*.log" -Tail 60; throw 'the installed Argos did not answer' }
+          "installed Argos answers: $($status.Substring(0, [Math]::Min(400, $status.Length)))"
+          Get-Content "$env:APPDATA/Argos/logs/argos-*.log" -Tail 25
+          Invoke-Argos @('--send', 'exit') | Out-Null
+          Start-Sleep -Seconds 5
+          Get-Process Argos -ErrorAction SilentlyContinue | Stop-Process -Force
+
+      - name: Keep the installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Argos-Setup-${{ env.VERSION }}
+          path: releases/Argos-Setup.exe
+          retention-days: 30
+
+      - name: Keep the update files
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-files-${{ env.VERSION }}
+          path: releases/
+          retention-days: 30
