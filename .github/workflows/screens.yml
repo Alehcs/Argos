@@ -1,0 +1,85 @@
+name: README screenshots
+
+# Draws the README's pages with Argos itself (Argos.exe --render) over the made-up clips and screenshots in
+# docs/media/screens/samples, in every language. tools/make-screens.py turns the result into the README's pictures.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/screens.yml', 'tools/make-screens.py', 'docs/media/screens/samples/**']
+
+permissions:
+  contents: read
+
+jobs:
+  screens:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish as a release does
+        run: dotnet publish src/Argos -c Release --self-contained true -p:PublicRelease=true -o publish --nologo
+
+      # The editor reads the clip's frames with FFmpeg, which releases take from OBS Studio (tools/stage-runtime.ps1).
+      - name: Add OBS Studio 32.2.2's libobs and FFmpeg
+        shell: pwsh
+        run: |
+          $ProgressPreference = 'SilentlyContinue'
+          $zip = Join-Path $env:RUNNER_TEMP 'obs.zip'
+          Invoke-WebRequest 'https://github.com/obsproject/obs-studio/releases/download/32.2.2/OBS-Studio-32.2.2-Windows-x64.zip' -OutFile $zip
+          $hash = (Get-FileHash $zip -Algorithm SHA256).Hash
+          if ($hash -ne '4D6E40E3AB155F56B30DE517380566A206D74B63CDF5AD49AA596924768F97E1') { throw "not the OBS release expected: $hash" }
+          $unpacked = Join-Path $env:RUNNER_TEMP 'obs'
+          Expand-Archive $zip $unpacked
+          $obs = (Get-ChildItem $unpacked -Recurse -Filter obs.dll | Where-Object { $_.Directory.Name -eq '64bit' } | Select-Object -First 1).Directory.Parent.Parent.FullName
+          ./tools/stage-runtime.ps1 -Dest publish -Obs $obs
+
+      - name: Lay out the samples as a clips folder
+        shell: pwsh
+        run: |
+          $clips = Join-Path $env:RUNNER_TEMP 'clips'
+          $evening = (Get-Date).Date.AddHours(21)
+          # Game, sample, minutes before 21:00 today: today, yesterday and earlier this week, for the Library's headings.
+          $items = @(
+              @('Ember Peaks', 'ember-peaks.mp4', 12), @('Ember Peaks', 'ember-peaks.png', 15), @('Night Runner', 'night-runner.mp4', 70),
+              @('Frostline', 'frostline.png', 130), @('Frostline', 'frostline.mp4', 1500), @('Dune Riders', 'dune-riders.png', 1620),
+              @('Greenvale', 'greenvale.mp4', 4400))
+          foreach ($i in $items) {
+              $time = $evening.AddMinutes(-$i[2])
+              $folder = Join-Path $clips $i[0]
+              New-Item -ItemType Directory -Force $folder | Out-Null
+              $path = Join-Path $folder ('{0} {1:yyyy-MM-dd HH-mm-ss}{2}' -f $i[0], $time, [IO.Path]::GetExtension($i[1]))
+              Copy-Item (Join-Path 'docs/media/screens/samples' $i[1]) $path
+              (Get-Item $path).LastWriteTime = $time
+          }
+          "ARGOS_RENDER_SAMPLES=$clips" >> $env:GITHUB_ENV
+          "ARGOS_RENDER_CLIP=$((Get-ChildItem $clips -Recurse -Filter 'Ember Peaks*.mp4').FullName)" >> $env:GITHUB_ENV
+          "ARGOS_RENDER_THUMB=$((Resolve-Path 'docs/media/screens/samples/ember-peaks.png').Path)" >> $env:GITHUB_ENV
+
+      - name: Draw the README pages
+        shell: pwsh
+        run: |
+          $exe = (Resolve-Path publish/Argos.exe).Path
+          # The README's picture, the page drawn and its state.
+          $pages = @(@('status', 'status-latest', ''), @('library', 'clips-pictures', ''), @('editor', 'editor-captions', ''),
+              @('share', 'share-all', ''), @('smart-save', 'voice', 'testing'), @('accounts', 'connections', ''))
+          foreach ($lang in 'en', 'es', 'ar', 'de', 'pt-BR', 'ru', 'zh-Hans') {
+              foreach ($p in $pages) {
+                  $png = Join-Path $PWD "screens/$lang/$($p[0]).png"
+                  $arguments = @('--render', $p[1], $png, $lang) + $(if ($p[2]) { @($p[2]) } else { @() })
+                  $run = Start-Process $exe -ArgumentList $arguments -NoNewWindow -Wait -PassThru
+                  if ($run.ExitCode -ne 0 -or -not (Test-Path $png)) { throw "render $lang $($p[0]) failed ($($run.ExitCode))" }
+                  "$lang/$($p[0]).png"
+              }
+          }
+
+      - name: Keep the pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: readme-screens
+          path: screens/
+          retention-days: 7
