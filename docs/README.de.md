@@ -111,4 +111,4 @@ Der Build kopiert libobs 32.2.2 aus einem installierten OBS Studio.
 
 Argos ist freie Software unter der [GNU General Public License v2.0 oder neuer](../LICENSE), derselben Lizenz wie libobs. Jedes Release enthält den vollständigen Quellcode. Komponenten von Drittanbietern und ihre Lizenzen stehen in [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
 
-<sub>*Argos* (Ἄργος Πανόπτης) ist der hundertäugige Riese der griechischen Mythologie, der niemals aufhörte zu wachen. Basiert auf [Kairos](https://github.com/BasilForge/Kairos) von BasilForge.</sub>
+<sub>*Argos* (Ἄργος Πανόπτης) ist der hundertäugige Riese der griechischen Mythologie, der niemals aufhörte zu wachen.</sub>

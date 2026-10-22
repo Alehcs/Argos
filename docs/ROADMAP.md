@@ -18,12 +18,13 @@ Documento vivo: lo vamos afinando. Última actualización: 21 oct 2026.
 
 - **Nombre:** Argos, en todo. Kairos ya no aparece en ningún sitio: interfaz, instalador, código, carpetas ni archivos
   (rama `rename/argos-complete`). Solo quedan dos menciones a propósito:
-  - El crédito al proyecto original en los README y en THIRD-PARTY-NOTICES, que la licencia GPL pide conservar.
+  - El crédito al proyecto original, solo en THIRD-PARTY-NOTICES (desde el 22 oct 2026 ya no está en los README).
   - La dirección del motor de subtítulos, que hoy se descarga del repo original (ver Seguridad).
 - **Créditos:** solo los obligatorios, y nunca en la interfaz.
   - Las licencias de terceros (OBS, FFmpeg, whisper.cpp, el modelo Whisper, ONNX Runtime, las fuentes…) lo exigen,
     cambie o no el modelo.
-  - La línea "basado en Kairos": Argos parte de su código, y la licencia GPL pide conservar los avisos del autor original.
+  - La línea "basado en Kairos", en THIRD-PARTY-NOTICES (va con el programa): Argos parte de su código, y no sería
+    correcto presentarlo como 100% nuestro. La GPL pide conservar sus avisos de licencia, y eso se cumple.
 - **Arreglos del original:** se pueden seguir trayendo. Git reconoce los archivos renombrados, aunque habrá algún
   conflicto pequeño de vez en cuando.
 - **Logo:** el de Alejandro (`docs/media/brand`), aplicado en todas partes, también en las capturas del README (ver

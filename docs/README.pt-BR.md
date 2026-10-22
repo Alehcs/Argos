@@ -111,4 +111,4 @@ A compilação copia a libobs 32.2.2 de um OBS Studio instalado.
 
 O Argos é software livre sob a [Licença Pública Geral GNU v2.0 ou posterior](../LICENSE), a mesma licença da libobs. Cada versão inclui seu código-fonte completo. Os componentes de terceiros e suas licenças estão em [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
 
-<sub>*Argos* (Ἄργος Πανόπτης) é o gigante de cem olhos da mitologia grega que nunca parava de vigiar. Baseado no [Kairos](https://github.com/BasilForge/Kairos), de BasilForge.</sub>
+<sub>*Argos* (Ἄργος Πανόπτης) é o gigante de cem olhos da mitologia grega que nunca parava de vigiar.</sub>

@@ -111,4 +111,4 @@ dotnet run --project tests\Argos.Tests # the tests
 
 Argos 是自由软件，采用 [GNU 通用公共许可证 v2.0 或更高版本](../LICENSE)，与 libobs 的许可证相同。每个版本都附带完整源代码。第三方组件及其许可证列于 [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md)。
 
-<sub>*Argos*（Ἄργος Πανόπτης）是希腊神话中长着一百只眼睛、从不停止守望的巨人。基于 BasilForge 的 [Kairos](https://github.com/BasilForge/Kairos)。</sub>
+<sub>*Argos*（Ἄργος Πανόπτης）是希腊神话中长着一百只眼睛、从不停止守望的巨人。</sub>

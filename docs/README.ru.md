@@ -111,4 +111,4 @@ dotnet run --project tests\Argos.Tests # the tests
 
 Argos — свободное ПО под [GNU General Public License v2.0 или новее](../LICENSE), той же лицензией, что и у libobs. Каждый выпуск содержит полный исходный код. Сторонние компоненты и их лицензии перечислены в [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
 
-<sub>*Argos* (Ἄργος Πανόπτης) — стоглазый великан из греческой мифологии, который никогда не переставал следить. Основано на [Kairos](https://github.com/BasilForge/Kairos) от BasilForge.</sub>
+<sub>*Argos* (Ἄργος Πανόπτης) — стоглазый великан из греческой мифологии, который никогда не переставал следить.</sub>
