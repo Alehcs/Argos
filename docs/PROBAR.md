@@ -4,9 +4,13 @@ Guía para instalar una versión de prueba, comprobar que todo funciona y medir 
 
 ## 1. Descargar
 
-1. En GitHub, abre **Actions → Test build** y entra en la última ejecución en verde.
-2. Abajo, en **Artifacts**, descarga `Argos-Setup-<versión>` (hay que haber iniciado sesión en GitHub).
-3. Descomprime el zip: dentro está `Argos-Setup.exe`.
+En la página [Releases](https://github.com/Alehcs/Argos/releases) de GitHub, abre la versión más reciente marcada
+como **Pre-release** y descarga `Argos-Setup.exe`. No hace falta iniciar sesión.
+
+Una versión que aún no se publicó está en **Actions → Test build**: abre la ejecución en verde y descarga, en
+**Artifacts**, `Argos-Setup-<versión>` (con sesión iniciada en GitHub). Es un zip con `Argos-Setup.exe` dentro.
+
+Una versión de prueba instalada se actualiza sola cuando se publica otra más nueva en Releases.
 
 ## 2. Instalar
 

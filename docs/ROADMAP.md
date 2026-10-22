@@ -36,8 +36,8 @@ Documento vivo: lo vamos afinando. Última actualización: 21 oct 2026.
 
 - [ ] PC con Windows y GPU para probar.
 - [x] **Versión de prueba** (1.1.0-beta.1): GitHub arma el mismo instalador que una versión oficial (Actions → "Test
-  build"), lo instala en silencio y arranca Argos para comprobarlo. Se descarga desde esa ejecución. Cómo instalarla,
-  probarla y medirla: `docs/PROBAR.md`.
+  build"), lo instala en silencio y arranca Argos para comprobarlo. Publicada como Pre-release en Releases (22 oct
+  2026): se descarga sin iniciar sesión. Cómo instalarla, probarla y medirla: `docs/PROBAR.md`.
 - [ ] Medir antes y después de cada cambio: RAM del programa (página Estado), CPU, GPU y FPS del juego (PresentMon o CapFrameX).
 - [x] Compilación y tests automáticos en GitHub (Windows) en cada cambio (`.github/workflows/build.yml`).
   - Compila sin errores ni avisos.
@@ -158,8 +158,8 @@ En GitHub compila, pasan los 503 tests y las capturas de las páginas se ven bie
 ## Pendientes
 
 - [ ] Probar en un PC real con Windows, OBS y gráfica. En GitHub ya compila y pasan todos los tests que no necesitan hardware.
-- [ ] Actualizaciones automáticas: el repo ya es público (22 oct 2026), pero Argos solo se actualiza desde versiones
-  publicadas en la página de Releases, y todavía no hay ninguna.
+- [ ] Actualizaciones automáticas: el repo ya es público (22 oct 2026). Las versiones de prueba se actualizan desde las
+  Pre-release de Releases (ya está la 1.1.0-beta.1). El botón "Download" del README espera la primera versión normal.
 
 ## Registro
 
