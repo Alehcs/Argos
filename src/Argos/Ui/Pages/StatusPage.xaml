@@ -48,6 +48,15 @@
                 <TextBlock Style="{StaticResource NoticeText}" Text="{Binding FolderWarning}"/>
             </DockPanel>
         </Border>
+        <!-- Changes made on other pages count only once saved: until then this page still shows the saved ones -->
+        <Border Style="{StaticResource Notice}" Visibility="{Binding UnsavedText, Converter={StaticResource Vis}}">
+            <DockPanel>
+                <TextBlock Style="{StaticResource NoticeIcon}" DockPanel.Dock="Left"/>
+                <Button Style="{StaticResource Ghost}" DockPanel.Dock="Right" Margin="10,0,0,0" VerticalAlignment="Center"
+                        Command="{Binding ApplyCommand}" Content="{l:T bar.apply}"/>
+                <TextBlock Style="{StaticResource NoticeText}" Text="{Binding UnsavedText}"/>
+            </DockPanel>
+        </Border>
         <Border Style="{StaticResource Notice}" Visibility="{Binding LosingFramesText, Converter={StaticResource Vis}}">
             <DockPanel>
                 <TextBlock Style="{StaticResource NoticeIcon}" DockPanel.Dock="Left"/>

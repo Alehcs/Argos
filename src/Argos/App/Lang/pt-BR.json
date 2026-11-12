@@ -84,6 +84,7 @@
   "status.noClip": "Nenhum clipe ainda",
   "status.folderFallback": "A pasta de clipes não está disponível, então os clipes vão para {0}",
   "status.losingFrames": "O Argos está perdendo quadros: seu PC não está dando conta. Experimente o modo Desempenho, uma imagem menor ou 30 fps.",
+  "status.unsaved": "Você tem alterações não salvas: o Argos segue com as configurações salvas até você salvar.",
   "status.usePerformance": "Usar Desempenho",
   "mode.screen": "Tela inteira",
   "mode.window": "Um app",

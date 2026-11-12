@@ -83,6 +83,7 @@
   "status.noClip": "还没有片段",
   "status.folderFallback": "片段文件夹不可用，片段将保存到 {0}",
   "status.losingFrames": "Argos 正在丢帧：你的电脑跟不上。试试性能模式、更小的画面或 30 帧。",
+  "status.unsaved": "有未保存的更改：保存之前，Argos 仍使用已保存的设置。",
   "status.usePerformance": "使用性能模式",
   "mode.screen": "全屏",
   "mode.window": "单个应用",

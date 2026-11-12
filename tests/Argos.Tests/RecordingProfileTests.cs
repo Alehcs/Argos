@@ -54,4 +54,18 @@ public static class RecordingProfileTests
         Assert.True(vm.IsDirty, "to be saved like any other change");
         Assert.True(!vm.SuggestPerformance && vm.LosingFramesText.Length > 0, "the advice stays, the button goes");
     }
+
+    /// <summary>A clip length changed but not saved: the Status page says Argos still runs with the saved one.</summary>
+    [Test]
+    public static void The_status_page_says_when_changes_are_not_saved_yet()
+    {
+        var vm = new SettingsViewModel();
+        Assert.True(!vm.IsDirty && vm.UnsavedText.Length == 0, "nothing changed: no notice");
+
+        vm.SecondsIndex = vm.SecondsIndex == 0 ? 1 : 0;
+        Assert.True(vm.IsDirty && vm.UnsavedText.Length > 0, "a new clip length, not saved: the notice");
+
+        vm.RevertCommand.Execute(null);
+        Assert.True(!vm.IsDirty && vm.UnsavedText.Length == 0, "reverted: the notice goes");
+    }
 }

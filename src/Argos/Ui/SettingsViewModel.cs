@@ -870,6 +870,9 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
     public string FolderWarning => _status?.Engine is { FolderFellBack: true } e ? Text.Format("status.folderFallback", e.ClipsFolder) : "";
     /// <summary>Shown while the engine loses frames: what to try.</summary>
     public string LosingFramesText => _status?.LosingFrames == true ? Text.Get("status.losingFrames") : "";
+
+    /// <summary>Unsaved changes: Argos still runs with the saved settings (the clip length shown is the saved one).</summary>
+    public string UnsavedText => IsDirty ? Text.Get("status.unsaved") : "";
     /// <summary>The notice's button: the lighter mode, while it is not picked yet.</summary>
     public bool SuggestPerformance => _status?.LosingFrames == true && Profile == RecordingProfile.Normal;
 

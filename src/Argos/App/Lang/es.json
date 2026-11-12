@@ -84,6 +84,7 @@
   "status.noClip": "Aún no hay clips",
   "status.folderFallback": "La carpeta de clips no está disponible, así que los clips van a {0}",
   "status.losingFrames": "Argos está perdiendo fotogramas: tu PC no da abasto. Prueba el modo Rendimiento, una imagen más pequeña o 30 fps.",
+  "status.unsaved": "Tienes cambios sin guardar: Argos sigue con los ajustes guardados hasta que guardes.",
   "status.usePerformance": "Usar Rendimiento",
   "mode.screen": "Pantalla completa",
   "mode.window": "Una aplicación",

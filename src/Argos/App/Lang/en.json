@@ -84,6 +84,7 @@
   "status.noClip": "No clips yet",
   "status.folderFallback": "The clips folder is unavailable, so clips go to {0}",
   "status.losingFrames": "Argos is losing frames: your PC can't keep up. Try the Performance mode, a smaller picture or 30 fps.",
+  "status.unsaved": "You have unsaved changes: Argos keeps using the saved settings until you save.",
   "status.usePerformance": "Use Performance",
   "mode.screen": "Full screen",
   "mode.window": "One app",
