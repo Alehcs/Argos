@@ -75,6 +75,22 @@ jobs:
           if (-not $status) { Get-Content "$env:APPDATA/Argos/logs/argos-*.log" -Tail 60; throw 'the installed Argos did not answer' }
           "installed Argos answers: $($status.Substring(0, [Math]::Min(400, $status.Length)))"
           Get-Content "$env:APPDATA/Argos/logs/argos-*.log" -Tail 25
+          if ($status -notmatch '"bufferTargetSeconds":300') { throw 'the buffer is not the default 5 minutes' }
+          # A 1-minute clip, saved as the settings window's Save does: the buffer must follow it.
+          $file = "$env:APPDATA/Argos/settings.json"
+          $settings = if (Test-Path $file) { Get-Content $file -Raw | ConvertFrom-Json } else { [pscustomobject]@{} }
+          if (-not $settings.replay) { $settings | Add-Member replay ([pscustomobject]@{}) }
+          $settings.replay | Add-Member seconds 60 -Force
+          $settings | ConvertTo-Json -Depth 20 | Set-Content $file
+          Invoke-Argos @('--send', 'apply') | Out-Null
+          $after = $null
+          for ($i = 0; $i -lt 30 -and -not $after; $i++) {
+              Start-Sleep -Seconds 1
+              $reply = (Invoke-Argos @('--send', 'status')).Text
+              if ($reply -match '"bufferTargetSeconds":60\b') { $after = $reply }
+          }
+          if (-not $after) { "last status: $reply"; throw 'the buffer did not follow the 1-minute clip length' }
+          'clip length 1 minute: the buffer now keeps the last minute'
           Invoke-Argos @('--send', 'exit') | Out-Null
           Start-Sleep -Seconds 5
           Get-Process Argos -ErrorAction SilentlyContinue | Stop-Process -Force
