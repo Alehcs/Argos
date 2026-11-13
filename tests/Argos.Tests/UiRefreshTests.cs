@@ -99,7 +99,8 @@ public static class UiRefreshTests
         try
         {
             var now = DateTime.Now;
-            Put(root, @"Game\Game today.mp4", now.AddMinutes(-5));
+            // Halfway between midnight and now: earlier today even just after midnight (not "5 minutes ago").
+            Put(root, @"Game\Game today.mp4", now - now.TimeOfDay / 2);
             Put(root, @"Game\Game yesterday.png", now.Date.AddDays(-1).AddHours(12));
             Put(root, @"Game\Game old.mp4", now.Date.AddDays(-60));
             var vm = new ClipsViewModel(() => root, () => "Alt+F10", () => "Alt+F12");
